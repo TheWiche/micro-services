@@ -19,8 +19,8 @@ const state = {
   originalImageUrl: null,
   fileName: 'vectorizado',
   svgString: '',
-  mode: 'bw', // 'bw' | 'color'
-  smoothing: 'medium', // 'low' | 'medium' | 'high'
+  mode: 'color', // 'color' por defecto para preservar colores y contornos
+  smoothing: 'low', // 'low' (alta fidelidad sin desenfoque) | 'medium' | 'high'
   colorCount: 16,
   isProcessing: false,
   zoomLeft: 1,
@@ -132,10 +132,11 @@ function setupUploadEvents() {
 
     elements.dropzone.addEventListener('drop', (e) => {
       const file = e.dataTransfer?.files?.[0];
-      if (file && file.type.startsWith('image/')) {
+      if (file && (file.type.startsWith('image/') || /\.(png|jpe?g|webp|bmp|gif)$/i.test(file.name))) {
         handleImageFile(file);
-      } else {
-        showToast('Por favor sube una imagen válida (PNG, JPG, WebP)');
+        showToast('✓ Imagen cargada correctamente');
+      } else if (file) {
+        showToast(`⚠️ Formato no admitido ("${file.name}"). Esta herramienta solo admite imágenes (PNG, JPG, WebP, BMP).`);
       }
     });
   }
@@ -144,16 +145,34 @@ function setupUploadEvents() {
   window.addEventListener('paste', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     const items = e.clipboardData?.items;
-    if (!items) return;
+    const files = e.clipboardData?.files;
+    let handled = false;
 
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].type.startsWith('image/')) {
-        const file = items[i].getAsFile();
-        if (file) {
-          handleImageFile(file, 'captura-pegada');
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].type.startsWith('image/') || /\.(png|jpe?g|webp|bmp|gif)$/i.test(files[i].name)) {
+          handleImageFile(files[i], 'captura-pegada');
+          showToast('✓ Imagen pegada desde el portapapeles');
+          handled = true;
           break;
         }
       }
+    } else if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.startsWith('image/')) {
+          const file = items[i].getAsFile();
+          if (file) {
+            handleImageFile(file, 'captura-pegada');
+            showToast('✓ Imagen pegada desde el portapapeles');
+            handled = true;
+            break;
+          }
+        }
+      }
+    }
+
+    if (!handled && !e.defaultPrevented) {
+      showToast('⚠️ El contenido del portapapeles no es una imagen admitida (PNG, JPG, WebP).');
     }
   });
 
@@ -184,18 +203,21 @@ function handleImageFile(file, customName = null) {
 // AJUSTES RÁPIDOS
 // =============================================================================
 function setupSettingsEvents() {
+  const activeClass = 'flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white font-bold text-xs shadow-xs';
+  const inactiveClass = 'flex-1 py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-700';
+
   elements.modeBwBtn.addEventListener('click', () => {
     state.mode = 'bw';
-    elements.modeBwBtn.className = 'flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white font-bold text-xs shadow-xs';
-    elements.modeColorBtn.className = 'flex-1 py-2 px-3 rounded-xl bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200';
+    elements.modeBwBtn.className = activeClass;
+    elements.modeColorBtn.className = inactiveClass;
     elements.colorCountContainer.classList.add('hidden');
     if (state.originalImageUrl) vectorizeCurrent();
   });
 
   elements.modeColorBtn.addEventListener('click', () => {
     state.mode = 'color';
-    elements.modeColorBtn.className = 'flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white font-bold text-xs shadow-xs';
-    elements.modeBwBtn.className = 'flex-1 py-2 px-3 rounded-xl bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200';
+    elements.modeColorBtn.className = activeClass;
+    elements.modeBwBtn.className = inactiveClass;
     elements.colorCountContainer.classList.remove('hidden');
     if (state.originalImageUrl) vectorizeCurrent();
   });
@@ -228,26 +250,34 @@ function vectorizeCurrent() {
 
   let tracerOptions = {};
 
-  // Configuración de suavizado
+  // Configuración de suavizado y fidelidad de contornos
   let blurRadius = 0;
-  let blurDelta = 20;
-  let ltres = 1;
-  let qtres = 1;
+  let blurDelta = 10;
+  let ltres = 0.5;
+  let qtres = 0.5;
+  let pathomit = 1;
 
   if (state.smoothing === 'low') {
+    // Alta fidelidad: sin desenfoque, trazado estricto
     blurRadius = 0;
+    blurDelta = 10;
     ltres = 0.5;
     qtres = 0.5;
+    pathomit = 1;
   } else if (state.smoothing === 'medium') {
-    blurRadius = 2;
-    blurDelta = 20;
+    // Equilibrado
+    blurRadius = 0;
+    blurDelta = 15;
     ltres = 1;
     qtres = 1;
+    pathomit = 2;
   } else if (state.smoothing === 'high') {
-    blurRadius = 4;
-    blurDelta = 35;
-    ltres = 2;
-    qtres = 2;
+    // Curvas suaves
+    blurRadius = 1;
+    blurDelta = 20;
+    ltres = 1.5;
+    qtres = 1.5;
+    pathomit = 3;
   }
 
   if (state.mode === 'bw') {
@@ -256,33 +286,35 @@ function vectorizeCurrent() {
       corsenabled: false,
       ltres: ltres,
       qtres: qtres,
-      pathomit: 6,
-      roundcoords: 2,
+      pathomit: pathomit,
+      roundcoords: 1,
       blurradius: blurRadius,
       blurdelta: blurDelta,
       colorsampling: 0,
       numberofcolors: 2,
       colorquantcycles: 2,
       scale: 1,
+      linefilter: true,
       pal: [
         { r: 0, g: 0, b: 0, a: 255 },
         { r: 255, g: 255, b: 255, a: 0 }
       ]
     };
   } else {
-    // Modo Multicolor
+    // Modo Color / Ilustración
     tracerOptions = {
       corsenabled: false,
       ltres: ltres,
       qtres: qtres,
-      pathomit: 8,
+      pathomit: pathomit,
       roundcoords: 1,
       blurradius: blurRadius,
       blurdelta: blurDelta,
       colorsampling: 2,
-      numberofcolors: state.colorCount,
+      numberofcolors: state.colorCount || 16,
       colorquantcycles: 3,
       scale: 1,
+      linefilter: true
     };
   }
 

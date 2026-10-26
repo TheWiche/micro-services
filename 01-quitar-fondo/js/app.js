@@ -3,7 +3,7 @@
  * Procesamiento de IA en el navegador con WebAssembly/WebGL usando @imgly/background-removal
  */
 
-import imglyRemoveBackground from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.7/+esm';
+import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.7/+esm';
 
 // =============================================================================
 // CONFIGURACIÓN GLOBAL (MONETIZACIÓN Y PARÁMETROS DEL MODELO IA)
@@ -36,7 +36,7 @@ const state = {
   processedImageUrl: null,
   currentFileName: 'imagen',
   isProcessing: false,
-  isBulkUnlocked: localStorage.getItem('bg_removal_bulk_unlocked') === 'true',
+  isBulkUnlocked: true,
   bulkFilesQueue: [],
 };
 
@@ -260,7 +260,7 @@ async function executeBackgroundRemoval(imageSource) {
       }
     };
 
-    const resultBlob = await imglyRemoveBackground(imageSource, aiConfig);
+    const resultBlob = await removeBackground(imageSource, aiConfig);
 
     updateProgress(100, '¡Recorte completado con éxito!');
     state.processedImageBlob = resultBlob;

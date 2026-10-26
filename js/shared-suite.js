@@ -363,7 +363,7 @@
               <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white text-base shadow-md shadow-indigo-500/25 group-hover:scale-105 transition-transform">⚡</span>
               <div class="hidden sm:flex flex-col leading-tight">
                 <span class="font-extrabold text-slate-900 dark:text-white tracking-tight text-base">Web<span class="text-indigo-600 dark:text-indigo-400">Tools</span></span>
-                <span class="text-[9px] text-slate-400 dark:text-slate-500 font-medium -mt-0.5">Suite 100% Client-Side</span>
+                <span class="text-[9px] text-slate-400 dark:text-slate-500 font-medium -mt-0.5">Micro-Servicios Web</span>
               </div>
             </a>
 
@@ -383,12 +383,6 @@
 
           <!-- Acciones Derecha -->
           <div class="flex items-center gap-2.5 sm:gap-3">
-            <!-- Badge 100% Privado -->
-            <span class="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/80 text-emerald-700 dark:text-emerald-300 text-xs font-bold tracking-wide">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              🔒 100% Client-Side
-            </span>
-
             <!-- Botón Catálogo -->
             <a href="${rootRelPath}index.html" class="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
@@ -503,11 +497,8 @@
               <span class="font-extrabold text-slate-900 dark:text-white text-base">Web<span class="text-indigo-600 dark:text-indigo-400">Tools</span></span>
             </a>
             <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
-              Suite de 12 micro-herramientas de alto rendimiento que se ejecutan 100% en tu navegador mediante WebAssembly y APIs nativas.
+              Suite unificada de micro-herramientas utilitarias para el procesamiento directo de archivos en el navegador.
             </p>
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-bold text-[11px]">
-              🔒 Privacidad Total Garantizada
-            </div>
           </div>
 
           <!-- Col 2: Imágenes e IA -->
@@ -546,7 +537,7 @@
         </div>
 
         <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 dark:text-slate-500 gap-3">
-          <div>&copy; 2026 WebTools Suite. Todos los derechos reservados. Procesamiento 100% Client-Side.</div>
+          <div>&copy; 2026 WebTools Suite. Todos los derechos reservados.</div>
           <div class="flex items-center gap-4">
             <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Modo Estático Activo</span>
             <a href="${rootRelPath}index.html#acerca" class="hover:underline">Acerca de la Suite</a>
@@ -576,6 +567,176 @@
   }
 
   // ===========================================================================
+  // ESPECIFICACIONES DE FORMATOS PERMITIDOS POR HERRAMIENTA & VALIDACIÓN
+  // ===========================================================================
+  const TOOL_FORMAT_SPECS = {
+    '01-quitar-fondo': {
+      types: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'],
+      exts: ['.png', '.jpg', '.jpeg', '.webp'],
+      label: 'imágenes (PNG, JPG o WebP)'
+    },
+    '02-conversor-imagenes': {
+      types: ['image/heic', 'image/heif', 'image/webp', 'image/avif', 'image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/svg+xml'],
+      exts: ['.heic', '.heif', '.webp', '.avif', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg'],
+      label: 'imágenes (HEIC, WebP, AVIF, PNG, JPG)'
+    },
+    '03-vectorizador-svg': {
+      types: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/bmp', 'image/gif'],
+      exts: ['.png', '.jpg', '.jpeg', '.webp', '.bmp', '.gif'],
+      label: 'imágenes de mapa de bits (PNG, JPG, WebP)'
+    },
+    '04-censurador-rostros': {
+      types: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'],
+      exts: ['.png', '.jpg', '.jpeg', '.webp'],
+      label: 'imágenes (PNG, JPG o WebP)'
+    },
+    '05-generador-favicons': {
+      types: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/svg+xml', 'image/x-icon', 'image/vnd.microsoft.icon'],
+      exts: ['.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico'],
+      label: 'imágenes (PNG, SVG, JPG o ICO)'
+    },
+    '06-extractor-colores': {
+      types: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif', 'image/svg+xml'],
+      exts: ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg'],
+      label: 'imágenes (PNG, JPG, WebP, SVG)'
+    },
+    '07-ocr-texto': {
+      types: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/bmp'],
+      exts: ['.png', '.jpg', '.jpeg', '.webp', '.bmp'],
+      label: 'imágenes con texto (PNG, JPG, WebP)'
+    },
+    '08-limpiador-exif': {
+      types: ['image/jpeg', 'image/jpg', 'image/tiff', 'image/png', 'image/webp', 'image/heic'],
+      exts: ['.jpg', '.jpeg', '.tiff', '.tif', '.png', '.webp', '.heic'],
+      label: 'fotografías con EXIF (JPG, JPEG, PNG)'
+    },
+    '09-herramientas-pdf': {
+      types: ['application/pdf'],
+      exts: ['.pdf'],
+      label: 'documentos PDF (.pdf)'
+    },
+    '10-lector-qr': {
+      types: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'],
+      exts: ['.png', '.jpg', '.jpeg', '.webp', '.gif'],
+      label: 'imágenes con código QR (PNG, JPG, WebP)'
+    },
+    '11-compresor-video': {
+      types: ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-matroska', 'video/avi'],
+      exts: ['.mp4', '.webm', '.mov', '.mkv', '.avi'],
+      label: 'archivos de video (MP4, WebM o MOV)'
+    },
+    '12-extractor-audio': {
+      types: ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-matroska', 'video/avi', 'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4'],
+      exts: ['.mp4', '.webm', '.mov', '.avi', '.mkv', '.mp3', '.wav', '.ogg', '.m4a'],
+      label: 'videos o audios (MP4, WebM, MOV, MP3, WAV)'
+    }
+  };
+
+  function getToolFormatSpec() {
+    if (!currentTool) return null;
+    return TOOL_FORMAT_SPECS[currentTool.dir] || null;
+  }
+
+  function isFileSupportedForTool(file, spec) {
+    if (!spec) return true;
+    const name = file.name || '';
+    const ext = name.includes('.') ? ('.' + name.split('.').pop().toLowerCase()) : '';
+    const mime = (file.type || '').toLowerCase();
+
+    if (ext && spec.exts.includes(ext)) return true;
+    if (mime && spec.types.some(t => mime === t || (t.endsWith('/*') && mime.startsWith(t.slice(0, -1))))) return true;
+    return false;
+  }
+
+  window.suiteGetToolFormatSpec = getToolFormatSpec;
+  window.suiteIsFileSupported = isFileSupportedForTool;
+
+  // Interceptor inteligente de Ctrl+V a nivel global si la herramienta no procesó el pegado
+  function setupSuiteClipboardWatcher() {
+    if (isCatalog || !currentTool) return;
+    const spec = getToolFormatSpec();
+    if (!spec) return;
+
+    window.addEventListener('paste', (e) => {
+      // Ignorar si el usuario está escribiendo en un input o textarea
+      const tag = e.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable) return;
+
+      const items = e.clipboardData?.items;
+      const files = e.clipboardData?.files;
+
+      let foundValid = false;
+      let foundInvalidName = '';
+
+      if (files && files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          if (isFileSupportedForTool(files[i], spec)) {
+            foundValid = true;
+            break;
+          } else {
+            foundInvalidName = files[i].name || files[i].type;
+          }
+        }
+      } else if (items && items.length > 0) {
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].kind === 'file') {
+            const f = items[i].getAsFile();
+            if (f && isFileSupportedForTool(f, spec)) {
+              foundValid = true;
+              break;
+            } else {
+              foundInvalidName = items[i].type;
+            }
+          }
+        }
+      }
+
+      // Si no es válido y no hay ningún archivo válido pegado
+      if (!foundValid) {
+        if (foundInvalidName) {
+          showSuiteToast(`⚠️ Formato no admitido (${foundInvalidName}). Esta herramienta requiere ${spec.label}.`, 4500);
+        } else if (items && items.length > 0) {
+          // Usuario pegó texto plano en una herramienta de archivos/imágenes
+          showSuiteToast(`⚠️ Has pegado texto. Esta herramienta requiere ${spec.label}.`, 4500);
+        } else {
+          showSuiteToast(`⚠️ El portapapeles está vacío o no contiene ningún archivo compatible (${spec.label}).`, 4000);
+        }
+      }
+    }, true); // UseCapture para avisar si el formato es incompatible
+  }
+
+  // Interceptor de Drag & Drop para avisar si el archivo no es compatible
+  function setupSuiteDropWatcher() {
+    if (isCatalog || !currentTool) return;
+    const spec = getToolFormatSpec();
+    if (!spec) return;
+
+    const dropzone = document.getElementById('dropzone');
+    if (!dropzone) return;
+
+    dropzone.addEventListener('drop', (e) => {
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        let hasValid = false;
+        let invalidName = '';
+        for (let i = 0; i < files.length; i++) {
+          if (isFileSupportedForTool(files[i], spec)) {
+            hasValid = true;
+            break;
+          } else {
+            invalidName = files[i].name || files[i].type;
+          }
+        }
+        if (!hasValid) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+          showSuiteToast(`⚠️ Archivo no compatible: "${invalidName}". Esta herramienta requiere ${spec.label}.`, 5000);
+        }
+      }
+    }, true);
+  }
+
+  // ===========================================================================
   // INICIALIZACIÓN AL CARGAR EL DOM
   // ===========================================================================
   document.addEventListener('DOMContentLoaded', () => {
@@ -583,6 +744,8 @@
     setupSuiteNavbar();
     setupSuiteFooter();
     neuterSpamModals();
+    setupSuiteClipboardWatcher();
+    setupSuiteDropWatcher();
   });
 
 })();

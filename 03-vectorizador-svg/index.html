@@ -81,26 +81,17 @@
   </header>
 
   <main class="flex-grow">
-    <!-- ESPACIO PUBLICITARIO 1 (TOP LEADERBOARD) -->
-    <div class="max-w-5xl mx-auto px-4 pt-6">
-      <div class="ad-banner-slot h-24 w-full">
-        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
-      </div>
-    </div>
-
-    <!-- =======================================================================
-         HERO & HERRAMIENTA CENTRAL
-         ======================================================================= -->
+    <!-- HERO & HERRAMIENTA CENTRAL -->
     <section id="herramienta" class="max-w-5xl mx-auto px-4 py-10 text-center">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
-        <span>⚡ Algoritmo ImageTracer</span> &bull; <span>100% Client-Side</span>
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 dark:bg-purple-950/60 border border-purple-100 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-xs font-bold uppercase tracking-wider mb-4">
+        <span>⚡ Vectorización de Precisión</span>
       </div>
 
-      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
         Convierte imágenes PNG o JPG a <span class="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">SVG Vectorial Escalable</span>
       </h1>
-      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-        Transforma logotipos, siluetas, firmas manuscritas y gráficos en vectores nítidos con resolución infinita listos para impresión o diseño web.
+      <p class="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        Transforma logotipos, ilustraciones, bocetos y firmas en trazados vectoriales nítidos con resolución infinita.
       </p>
 
       <!-- TARJETA PRINCIPAL DE SUBIDA Y AJUSTES -->
@@ -151,34 +142,35 @@
             <!-- Modo de Color -->
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1.5">Modo de Vectorización:</label>
-              <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
-                <button type="button" id="mode-bw" class="flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white font-bold text-xs shadow-xs">
-                  B&N / Firma
+              <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+                <button type="button" id="mode-color" class="flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white font-bold text-xs shadow-xs">
+                  🎨 Color / Logo
                 </button>
-                <button type="button" id="mode-color" class="flex-1 py-2 px-3 rounded-xl bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200">
-                  Multicolor
+                <button type="button" id="mode-bw" class="flex-1 py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs hover:bg-slate-200 dark:hover:bg-slate-700">
+                  ⬛ B&N / Silueta
                 </button>
               </div>
             </div>
 
             <!-- Suavizado de Curvas -->
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Suavizado de Curvas:</label>
-              <select id="smoothing-select" class="w-full py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-800 outline-none focus:border-purple-500">
-                <option value="low">Bajo (Fiel a los píxeles)</option>
-                <option value="medium" selected>Medio (Recomendado)</option>
-                <option value="high">Alto (Curvas ultra-suaves)</option>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Detalle y Contornos:</label>
+              <select id="smoothing-select" class="w-full py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 outline-none focus:border-purple-500">
+                <option value="low" selected>Alta Fidelidad (Conserva bordes y líneas)</option>
+                <option value="medium">Equilibrado (Recomendado)</option>
+                <option value="high">Curvas Suaves (Simplificado)</option>
               </select>
             </div>
 
             <!-- Cantidad de Colores (solo modo color) -->
-            <div id="color-count-container" class="hidden">
-              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Paleta de Colores:</label>
-              <select id="color-count-select" class="w-full py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-800 outline-none focus:border-purple-500">
+            <div id="color-count-container">
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Paleta de Colores:</label>
+              <select id="color-count-select" class="w-full py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 outline-none focus:border-purple-500">
                 <option value="4">4 colores (Minimalista)</option>
-                <option value="8">8 colores (Iconos)</option>
-                <option value="16" selected>16 colores (Equilibrado)</option>
+                <option value="8">8 colores (Iconos planos)</option>
+                <option value="16" selected>16 colores (Ilustración / Logo)</option>
                 <option value="32">32 colores (Detallado)</option>
+                <option value="64">64 colores (Máxima fidelidad)</option>
               </select>
             </div>
 
@@ -286,12 +278,7 @@
       </div>
     </section>
 
-    <!-- ESPACIO PUBLICITARIO 2 (BANNER DISPLAY MEDIO) -->
-    <div class="max-w-4xl mx-auto px-4 py-4">
-      <div class="ad-banner-slot h-28 w-full">
-        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Banner Contenido (728x90 / Responsivo Google AdSense)</span>
-      </div>
-    </div>
+    
 
     <!-- =======================================================================
          GUÍA SEO DETALLADA SOBRE VECTORIZACIÓN Y USO DE SVG

@@ -416,3 +416,153 @@
   background-color: #1e293b;
 }
 
+/* ==========================================================================
+   ARMONIZACIÓN E INVERSIÓN TOTAL DE COLORES (MODO OSCURO / CLARO)
+   Asegura que todos los elementos se inviertan adecuadamente sin dejar cajas
+   blancas en modo oscuro o textos ilegibles.
+   ========================================================================== */
+
+/* Fondo base y texto general */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #020617 !important; /* slate-950 */
+  color: #f1f5f9 !important; /* slate-100 */
+}
+
+/* Inversión de fondos blancos a grises oscuros / pizarra */
+html.dark .bg-white,
+html.dark [class*="bg-white/"] {
+  background-color: #0f172a !important; /* slate-900 */
+}
+
+/* Contenedores secundarios y fondos suaves */
+html.dark .bg-slate-50,
+html.dark .bg-gray-50,
+html.dark [class*="bg-slate-50/"] {
+  background-color: #0b1329 !important; /* intermedio slate */
+}
+
+html.dark .bg-slate-100,
+html.dark .bg-gray-100 {
+  background-color: #1e293b !important; /* slate-800 */
+}
+
+html.dark .bg-slate-200,
+html.dark .bg-gray-200 {
+  background-color: #334155 !important; /* slate-700 */
+}
+
+/* Bordes y separadores */
+html.dark .border-slate-200,
+html.dark .border-gray-200,
+html.dark .border-slate-100,
+html.dark .border-gray-100,
+html.dark .border-slate-300,
+html.dark .border-gray-300 {
+  border-color: #1e293b !important; /* slate-800 */
+}
+
+html.dark .border-slate-400 {
+  border-color: #334155 !important;
+}
+
+/* Inversión de textos para contraste perfecto */
+html.dark .text-slate-900,
+html.dark .text-gray-900,
+html.dark .text-slate-800,
+html.dark .text-gray-800 {
+  color: #f8fafc !important; /* slate-50 */
+}
+
+html.dark .text-slate-700,
+html.dark .text-gray-700 {
+  color: #e2e8f0 !important; /* slate-200 */
+}
+
+html.dark .text-slate-600,
+html.dark .text-gray-600 {
+  color: #cbd5e1 !important; /* slate-300 */
+}
+
+html.dark .text-slate-500,
+html.dark .text-gray-500 {
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+html.dark .text-slate-400,
+html.dark .text-gray-400 {
+  color: #64748b !important; /* slate-500 */
+}
+
+/* Inversión en Inputs, Selects, Textareas */
+html.dark input[type="text"],
+html.dark input[type="number"],
+html.dark input[type="search"],
+html.dark input[type="url"],
+html.dark input[type="password"],
+html.dark select,
+html.dark textarea {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+html.dark kbd {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+  border-color: #334155 !important;
+}
+
+/* Contenedores de previsualización y código */
+html.dark pre,
+html.dark code {
+  background-color: #020617 !important;
+  color: #a5b4fc !important;
+  border-color: #1e293b !important;
+}
+
+/* Cabecera y Pie de página unificados */
+html.dark header {
+  background-color: rgba(2, 6, 23, 0.9) !important;
+  border-color: #1e293b !important;
+}
+
+html.dark footer {
+  background-color: #020617 !important;
+  border-color: #1e293b !important;
+}
+
+/* Modales y Dropzones */
+html.dark .modal-content,
+html.dark .dialog-content {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+html.dark #dropzone,
+html.dark .suite-dropzone {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+/* Botones secundarios */
+html.dark button.bg-slate-100,
+html.dark button.bg-gray-100 {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark button.bg-slate-100:hover,
+html.dark button.bg-gray-100:hover {
+  background-color: #334155 !important;
+}
+
+

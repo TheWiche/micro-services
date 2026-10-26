@@ -62,3 +62,4 @@ Abre tu navegador en `http://localhost:8080` y ¡listo!
 
 ## 📄 Licencia
 Este proyecto es de código abierto y de uso libre para fines personales y comerciales.
+
