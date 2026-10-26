@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCR Online Gratis | Extraer Texto de Imágenes y Capturas de Pantalla con IA</title>
+  <meta name="description" content="Convierte capturas de pantalla, fotos de documentos, apuntes y recibos en texto editable. Reconocimiento óptico de caracteres (OCR) 100% privado en tu navegador con Tesseract.js.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos propios y suite compartida -->
+  <link rel="stylesheet" href="../css/shared-suite.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Tesseract.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased flex flex-col min-h-screen transition-colors duration-300">
+
+  <div id="toast" class="toast">¡Texto copiado al portapapeles!</div>
+
+  <!-- =========================================================================
+       HEADER CON RETORNO AL CATÁLOGO
+       ========================================================================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition-colors text-sm font-semibold pr-3 border-r border-slate-200" title="Regresar al Catálogo Principal de Micro-Servicios">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">Catálogo</span>
+        </a>
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-white text-lg shadow-md shadow-emerald-500/20">📄</span>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-slate-900 tracking-tight text-lg leading-tight">OCR<span class="text-brand-600">Scan</span></span>
+            <span class="text-[10px] text-slate-500 font-medium">Reconocimiento Óptico en WebAssembly</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-4 text-xs sm:text-sm font-medium text-slate-600">
+        <a href="#herramienta" class="hover:text-brand-600 transition-colors hidden sm:inline-block">Escanear</a>
+        <a href="#guia-ocr" class="hover:text-brand-600 transition-colors">Guía de Digitalización</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- ESPACIO PUBLICITARIO 1 (TOP LEADERBOARD) -->
+    <div class="max-w-5xl mx-auto px-4 pt-6">
+      <div class="ad-banner-slot h-24 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         HERO SECTION & HERRAMIENTA CENTRAL
+         ======================================================================= -->
+    <section id="herramienta" class="max-w-5xl mx-auto px-4 py-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
+        <span>⚡ Motor Tesseract.js</span> &bull; <span>100% Local Sin Servidores</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        Extraer Texto de Imágenes y <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Capturas de Pantalla</span>
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+        Toma una captura de pantalla con <kbd class="px-1.5 py-0.5 bg-slate-200 rounded text-xs font-mono font-semibold">Win + Shift + S</kbd> o sube una foto de un documento, y extrae su texto editable en segundos.
+      </p>
+
+      <!-- SELECTOR DE IDIOMA PREVIO -->
+      <div class="mt-8 flex items-center justify-center gap-3">
+        <label for="lang-select" class="text-xs font-bold uppercase tracking-wider text-slate-500">Idioma del Documento:</label>
+        <select id="lang-select" class="py-2 px-3.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-800 outline-none focus:border-emerald-500 shadow-xs cursor-pointer">
+          <option value="spa" selected>Español</option>
+          <option value="eng">Inglés (English)</option>
+          <option value="por">Portugués (Português)</option>
+          <option value="spa+eng">Español + Inglés (Bilingüe)</option>
+        </select>
+      </div>
+
+      <!-- CAJA DE CARGA RÁPIDA -->
+      <div id="tool-card" class="mt-6 max-w-2xl mx-auto">
+        <div id="dropzone" class="relative group bg-white border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-3xl p-8 sm:p-12 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-xl bg-gradient-to-b from-white to-slate-50/50">
+          <input type="file" id="file-input" accept="image/png, image/jpeg, image/webp" class="hidden">
+
+          <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 mb-4 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-inner">
+              📋
+            </div>
+
+            <button id="upload-btn" type="button" class="btn-pulse-emerald inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-base hover:from-emerald-700 hover:to-teal-700 transition-all shadow-lg shadow-emerald-500/25 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Subir Foto o Documento</span>
+            </button>
+
+            <!-- Énfasis especial en Ctrl + V para capturas -->
+            <div class="mt-5 p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200 text-emerald-900 flex items-center gap-3 text-xs max-w-md text-left">
+              <span class="text-2xl shrink-0">💡</span>
+              <div>
+                <strong>¿Acabas de hacer un recorte de pantalla?</strong><br>
+                Solo pulsa <kbd class="px-1.5 py-0.5 bg-white border border-emerald-300 rounded font-mono font-bold text-emerald-800 shadow-xs">Ctrl + V</kbd> aquí y el OCR comenzará de inmediato.
+              </div>
+            </div>
+
+            <p class="mt-3 text-sm font-medium text-slate-500">o arrastra tu archivo JPG, PNG o WebP</p>
+
+            <div class="mt-4 pt-4 border-t border-slate-100 w-full flex items-center justify-center">
+              <button id="sample-btn" type="button" class="text-xs text-emerald-600 hover:text-emerald-800 font-bold flex items-center gap-1.5">
+                <span>🧾</span> <span>¿No tienes imagen? Probar con factura demo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BARRA DE PROGRESO DETALLADA DE TESSERACT -->
+      <div id="progress-section" class="hidden mt-8 max-w-2xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 shadow-md text-left">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-6 border-3 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
+          <h3 id="progress-status" class="text-base font-bold text-slate-800">Iniciando reconocimiento óptico...</h3>
+        </div>
+
+        <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden p-0.5 border border-slate-200">
+          <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-500 h-full rounded-full transition-all duration-200" style="width: 10%"></div>
+        </div>
+
+        <div class="flex justify-between items-center mt-2 text-xs text-slate-500 font-mono">
+          <span>Inferencia Tesseract WASM</span>
+          <span id="progress-percent" class="font-bold text-emerald-600">10%</span>
+        </div>
+        <p class="mt-3 text-xs text-slate-400">
+          *La primera vez se descarga el modelo entrenado del idioma. El análisis se realiza 100% en tu procesador.
+        </p>
+      </div>
+
+      <!-- =====================================================================
+           ÁREA DE TRABAJO Y RESULTADO (SIDE-BY-SIDE)
+           ===================================================================== -->
+      <div id="workspace-section" class="hidden mt-8 max-w-5xl mx-auto text-left">
+        <!-- Barra de métricas y acciones superiores -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 mb-4 shadow-xs flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3 flex-wrap text-xs">
+            <span class="font-bold text-slate-700">Métricas:</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 font-mono font-bold text-slate-700" id="words-count">0 palabras</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 font-mono font-bold text-slate-700" id="chars-count">0 caracteres</span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold" id="confidence-badge">90% precisión</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="clean-lines-btn" type="button" class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 text-xs font-semibold transition-colors" title="Elimina saltos de línea innecesarios entre párrafos">
+              Normalizar Párrafos
+            </button>
+            <button id="copy-text-btn" type="button" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors flex items-center gap-1.5 shadow-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Copiar Texto</span>
+            </button>
+            <button id="download-txt-btn" type="button" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-emerald-600/20 active:scale-95">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Descargar .TXT</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PANELES LADO A LADO -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- PANEL IZQUIERDO: IMAGEN ORIGINAL -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-xs flex flex-col">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Documento / Captura Original</span>
+            <div class="w-full h-96 rounded-2xl bg-slate-100 border border-slate-200 overflow-auto flex items-center justify-center p-2">
+              <img id="doc-preview-img" class="max-w-full max-h-full object-contain rounded-lg" alt="Documento escaneado">
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2 text-center">Revisa la imagen original mientras editas a la derecha.</p>
+          </div>
+
+          <!-- PANEL DERECHO: TEXTO EXTRAÍDO EDITABLE -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-xs flex flex-col">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Texto Digitalizado (Editable)</span>
+            <textarea id="ocr-textarea" class="ocr-textarea w-full h-96 p-4 rounded-2xl border border-slate-200 bg-slate-50 text-slate-800 text-xs sm:text-sm outline-none focus:border-emerald-500 focus:bg-white transition-colors" placeholder="El texto reconocido aparecerá aquí..."></textarea>
+            <p class="text-[11px] text-slate-400 mt-2 text-center">Puedes corregir o agregar texto directamente en esta caja.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <button id="new-doc-btn" type="button" class="text-xs text-slate-500 hover:text-slate-800 font-semibold underline">
+            &larr; Escanear otro documento
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPACIO PUBLICITARIO 2 (BANNER MEDIO) -->
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="ad-banner-slot h-28 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Banner Contenido (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         ARTÍCULO SEO: DIGITALIZACIÓN DE DOCUMENTOS Y OCR
+         ======================================================================= -->
+    <article id="guia-ocr" class="max-w-4xl mx-auto px-4 py-16 prose prose-slate">
+      <header class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">Productividad & Ofimática</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4 tracking-tight">
+          Cómo Convertir Fotos y Recibos en Texto Editable con OCR
+        </h2>
+        <p class="text-sm text-slate-500 mt-2">Tecnología de reconocimiento óptico, consejos para máxima precisión y privacidad total.</p>
+      </header>
+
+      <div class="space-y-6 text-slate-700 text-base leading-relaxed">
+        <p>
+          El <strong>Reconocimiento Óptico de Caracteres (OCR)</strong> es una tecnología que analiza patrones de luz y sombras en una imagen para identificar letras, números y signos de puntuación, transformando píxeles muertos en texto editable que puedes buscar, copiar y pegar en procesadores como Word, Google Docs o Excel.
+        </p>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          Casos de uso diarios donde el OCR ahorra horas de trabajo
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose my-6">
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm">📸 Fotos de Libros y Apuntes</h4>
+            <p class="text-xs text-slate-600 mt-1">Digitaliza citas textuales de libros de estudio o apuntes de pizarra sin tener que tipear párrafo por párrafo a mano.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm">🧾 Facturas y Recibos</h4>
+            <p class="text-xs text-slate-600 mt-1">Extrae números de factura, montos de compra, impuestos y nombres de proveedores para tus registros de contabilidad.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm">💻 Capturas de Error y Código</h4>
+            <p class="text-xs text-slate-600 mt-1">Copia mensajes de error largos en ventanas emergentes o fragmentos de código en tutoriales en video de YouTube.</p>
+          </div>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          Consejos para obtener el 100% de precisión en el escaneo
+        </h3>
+        <ul class="list-disc pl-6 space-y-2">
+          <li><strong>Buena iluminación y contraste:</strong> Evita sombras diagonales de tu teléfono al tomar fotos sobre escritorios. Los fondos blancos con texto negro oscuro ofrecen la mayor precisión.</li>
+          <li><strong>Alineación recta:</strong> Procura que las líneas de texto no queden rotadas en ángulos pronunciados.</li>
+          <li><strong>Selecciona el idioma correcto:</strong> El diccionario de Tesseract utiliza modelos lingüísticos para predecir palabras con tildes, eñes o caracteres especiales propios de cada idioma.</li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>&copy; 2026 OCRScan &bull; Parte de la suite de <a href="../index.html" class="text-emerald-600 hover:underline font-semibold">Micro-Servicios Web</a>.</p>
+      <div class="flex items-center gap-4">
+        <a href="#herramienta" class="hover:underline">Escanear</a>
+        <a href="#guia-ocr" class="hover:underline">Guía OCR</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Suite Compartida y Lógica Local -->
+  <script src="../js/shared-suite.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

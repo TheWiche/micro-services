@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Estilos Personalizados - Reconocimiento Óptico de Caracteres (OCR Texto)
+   ========================================================================== */
+
+/* Dropzone activo */
+.dropzone-active {
+  border-color: #059669 !important;
+  background-color: rgba(5, 150, 105, 0.06) !important;
+  transform: scale(1.01);
+}
+
+/* Pulso verde esmeralda */
+@keyframes pulse-emerald {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+}
+
+.btn-pulse-emerald {
+  animation: pulse-emerald 2.4s infinite;
+}
+
+/* Área de texto editable */
+.ocr-textarea {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+/* Banners Display AdSense */
+.ad-banner-slot {
+  position: relative;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.ad-banner-slot::before {
+  content: 'PUBLICIDAD';
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.ad-banner-slot:hover {
+  border-color: #94a3b8;
+  background-color: #f1f5f9;
+}
+
+/* Toast flotante */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1e293b;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  z-index: 60;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+

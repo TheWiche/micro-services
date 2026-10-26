@@ -1,0 +1,418 @@
+/* ==========================================================================
+   WebTools Suite — Sistema de Diseño Compartido & Estilos Globales
+   Procesamiento 100% Client-Side en el Navegador
+   ========================================================================== */
+
+/* --- Importación tipografía Inter --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --suite-brand-50:  #eef2ff;
+  --suite-brand-100: #e0e7ff;
+  --suite-brand-500: #6366f1;
+  --suite-brand-600: #4f46e5;
+  --suite-brand-700: #4338ca;
+  --suite-brand-900: #312e81;
+}
+
+/* --- Fondo Transparente Cuadriculado (Checkerboard) --- */
+.checkerboard {
+  background-color: #f8fafc;
+  background-image: 
+    linear-gradient(45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(-45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e2e8f0 75%),
+    linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.dark .checkerboard {
+  background-color: #0f172a;
+  background-image: 
+    linear-gradient(45deg, #1e293b 25%, transparent 25%),
+    linear-gradient(-45deg, #1e293b 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1e293b 75%),
+    linear-gradient(-45deg, transparent 75%, #1e293b 75%);
+}
+
+/* --- Estilo unificado para Dropzones --- */
+.suite-dropzone,
+#dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 1.25rem;
+  background-color: #ffffff;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .suite-dropzone,
+.dark #dropzone {
+  border-color: #334155;
+  background-color: #0f172a;
+}
+
+.suite-dropzone:hover,
+#dropzone:hover {
+  border-color: #818cf8;
+  background-color: #f8fafc;
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.08);
+}
+
+.dark .suite-dropzone:hover,
+.dark #dropzone:hover {
+  border-color: #6366f1;
+  background-color: #1e293b;
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
+}
+
+.dropzone-active,
+.suite-dropzone.dropzone-active,
+#dropzone.dropzone-active {
+  border-color: #4f46e5 !important;
+  background-color: #eef2ff !important;
+  transform: scale(1.008);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+}
+
+.dark .dropzone-active,
+.dark .suite-dropzone.dropzone-active,
+.dark #dropzone.dropzone-active {
+  border-color: #818cf8 !important;
+  background-color: #1e1b4b !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.25) !important;
+}
+
+/* --- Tarjetas de herramientas unificadas --- */
+.suite-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .suite-card {
+  background-color: #0f172a;
+  border-color: #1e293b;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Quick Tool Switcher (Conmutador Rápido de Herramientas) --- */
+.suite-switcher-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #334155;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .suite-switcher-btn {
+  border-color: #334155;
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+.suite-switcher-btn:hover {
+  border-color: #818cf8;
+  color: #4f46e5;
+  background-color: #eef2ff;
+}
+
+.dark .suite-switcher-btn:hover {
+  border-color: #6366f1;
+  color: #a5b4fc;
+  background-color: #312e81;
+}
+
+/* Panel Desplegable */
+.suite-switcher-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: 360px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  padding: 0.75rem;
+  z-index: 100;
+  animation: suiteFadeDown 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .suite-switcher-dropdown {
+  background-color: #0f172a;
+  border-color: #334155;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+@keyframes suiteFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.suite-switcher-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  color: #334155;
+  transition: all 0.15s ease;
+  font-size: 0.8125rem;
+}
+
+.dark .suite-switcher-item {
+  color: #cbd5e1;
+}
+
+.suite-switcher-item:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.dark .suite-switcher-item:hover {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.suite-switcher-item.active {
+  background-color: #eef2ff;
+  color: #4338ca;
+  font-weight: 700;
+}
+
+.dark .suite-switcher-item.active {
+  background-color: #312e81;
+  color: #c7d2fe;
+}
+
+/* --- Badges de Privacidad & Categoría --- */
+.suite-badge-privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dark .suite-badge-privacy {
+  background-color: rgba(6, 95, 70, 0.3);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+/* --- Botón Primario Unificado --- */
+.suite-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px -2px rgba(99, 102, 241, 0.35);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.suite-btn-primary:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  box-shadow: 0 6px 16px -2px rgba(99, 102, 241, 0.5);
+  transform: translateY(-1px);
+}
+
+.suite-btn-primary:active {
+  transform: translateY(0);
+}
+
+.suite-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- Botón Secundario Unificado --- */
+.suite-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .suite-btn-secondary {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.suite-btn-secondary:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.dark .suite-btn-secondary:hover {
+  background-color: #334155;
+  border-color: #475569;
+  color: #ffffff;
+}
+
+/* --- Notificación Toast Global --- */
+.suite-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.25rem;
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-radius: 0.875rem;
+  box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(16px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .suite-toast {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #334155;
+}
+
+.suite-toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* --- Barra de Progreso Unificada --- */
+.suite-progress-track {
+  width: 100%;
+  height: 0.5rem;
+  background-color: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.dark .suite-progress-track {
+  background-color: #1e293b;
+}
+
+.suite-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* --- Banner de Espacio Publicitario (AdSense Clean Slot) --- */
+.suite-ad-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.875rem;
+  background-color: rgba(241, 245, 249, 0.5);
+  padding: 0.75rem;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 1.5rem auto;
+  max-width: 728px;
+  min-height: 90px;
+}
+
+.dark .suite-ad-slot {
+  border-color: #334155;
+  background-color: rgba(15, 23, 42, 0.4);
+  color: #64748b;
+}
+
+/* --- Estilos para Tablas de Metadatos y Listas --- */
+.suite-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.8125rem;
+}
+
+.suite-table th {
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  font-weight: 700;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dark .suite-table th {
+  color: #94a3b8;
+  border-color: #334155;
+}
+
+.suite-table td {
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.dark .suite-table td {
+  border-color: #1e293b;
+  color: #cbd5e1;
+}
+
+.suite-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.dark .suite-table tr:hover td {
+  background-color: #1e293b;
+}
+

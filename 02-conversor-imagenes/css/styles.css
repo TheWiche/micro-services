@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Estilos Personalizados - Conversor de Imágenes Moderno (HEIC, WEBP, AVIF)
+   ========================================================================== */
+
+/* Fondo ajedrezado para transparencias */
+.bg-checkerboard {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* Efecto visual al arrastrar archivos */
+.dropzone-active {
+  border-color: #2563eb !important;
+  background-color: rgba(37, 99, 235, 0.06) !important;
+  transform: scale(1.01);
+}
+
+/* Animación sutil de atención para el botón de subida */
+@keyframes pulse-blue {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+  }
+}
+
+.btn-pulse-blue {
+  animation: pulse-blue 2.2s infinite;
+}
+
+/* Estilo para los espacios publicitarios Display */
+.ad-banner-slot {
+  position: relative;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.ad-banner-slot::before {
+  content: 'PUBLICIDAD';
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.ad-banner-slot:hover {
+  border-color: #94a3b8;
+  background-color: #f1f5f9;
+}
+
+/* Fondo difuminado para modales */
+.modal-backdrop {
+  backdrop-filter: blur(6px);
+  background-color: rgba(15, 23, 42, 0.65);
+}
+
+/* Control deslizante de calidad personalizado */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+  border: 2px solid #ffffff;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+  border: 2px solid #ffffff;
+}
+

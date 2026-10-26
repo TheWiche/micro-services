@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compresor de Video Online Gratis | Reducir Tamaño para Discord, WhatsApp y Email</title>
+  <meta name="description" content="Reduce el tamaño en megabytes de videos MP4, MOV y WebM directamente en tu navegador sin perder calidad. Optimizado para enviar por Discord (<10MB), WhatsApp (<16MB) o correo.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos propios y suite compartida -->
+  <link rel="stylesheet" href="../css/shared-suite.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased flex flex-col min-h-screen transition-colors duration-300">
+
+  <div id="toast" class="toast">¡Operación completada!</div>
+
+  <!-- =========================================================================
+       HEADER CON RETORNO AL CATÁLOGO
+       ========================================================================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition-colors text-sm font-semibold pr-3 border-r border-slate-200" title="Regresar al Catálogo Principal de Micro-Servicios">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">Catálogo</span>
+        </a>
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center text-white text-lg shadow-md shadow-indigo-500/20">🎬</span>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-slate-900 tracking-tight text-lg leading-tight">Video<span class="text-brand-600">Compress</span></span>
+            <span class="text-[10px] text-slate-500 font-medium">Compresión de Video en el Navegador</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-4 text-xs sm:text-sm font-medium text-slate-600">
+        <a href="#herramienta" class="hover:text-brand-600 transition-colors hidden sm:inline-block">Comprimir</a>
+        <a href="#guia-video" class="hover:text-brand-600 transition-colors">Límites de Discord & WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- ESPACIO PUBLICITARIO 1 (TOP LEADERBOARD) -->
+    <div class="max-w-5xl mx-auto px-4 pt-6">
+      <div class="ad-banner-slot h-24 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         HERO SECTION & HERRAMIENTA CENTRAL
+         ======================================================================= -->
+    <section id="herramienta" class="max-w-5xl mx-auto px-4 py-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
+        <span>⚡ Codificación 100% en tu Procesador</span> &bull; <span>Sin Esperas en Cola</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        Comprimir Videos MP4 y MOV <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Directo en tu Navegador</span>
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+        ¿Tu video supera los límites de subida de Discord o WhatsApp? Reduce sus megabytes con algoritmos adaptativos sin subir el archivo a servidores externos.
+      </p>
+
+      <!-- CAJA CENTRAL DE CARGA (DRAG & DROP) -->
+      <div id="tool-card" class="mt-8 max-w-2xl mx-auto">
+        <div id="dropzone" class="relative group bg-white border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-3xl p-8 sm:p-12 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-xl bg-gradient-to-b from-white to-slate-50/50">
+          <input type="file" id="file-input" accept="video/mp4, video/quicktime, video/webm, .mp4, .mov, .webm" class="hidden">
+
+          <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 mb-4 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-inner">
+              🎥
+            </div>
+
+            <button id="upload-btn" type="button" class="btn-pulse-video inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-base hover:from-indigo-700 hover:to-violet-700 transition-all shadow-lg shadow-indigo-500/25 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Subir Archivo de Video</span>
+            </button>
+
+            <p class="mt-3 text-sm font-medium text-slate-600">o arrastra tu video aquí</p>
+            <div class="mt-3 flex items-center gap-2 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+              <kbd class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-slate-700 font-mono font-semibold shadow-xs">Ctrl + V</kbd>
+              <span>Pega archivos de video desde tu portapapeles</span>
+            </div>
+            <p class="mt-2 text-[11px] text-slate-400">Formatos compatibles: MP4, MOV (iPhone), WebM y MKV</p>
+
+            <div class="mt-4 pt-4 border-t border-slate-100 w-full flex items-center justify-center">
+              <button id="sample-btn" type="button" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1.5">
+                <span>⚡</span> <span>¿No tienes video a mano? Generar clip demo de prueba</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BARRA DE PROGRESO DE COMPRESIÓN -->
+      <div id="progress-section" class="hidden mt-8 max-w-2xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 shadow-md text-left">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-6 h-6 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <h3 id="progress-status" class="text-base font-bold text-slate-800">Recodificando video en tiempo real...</h3>
+        </div>
+
+        <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden p-0.5 border border-slate-200">
+          <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full transition-all duration-200" style="width: 10%"></div>
+        </div>
+
+        <div class="flex justify-between items-center mt-2 text-xs text-slate-500 font-mono">
+          <span>Tasa de fotogramas adaptativa</span>
+          <span id="progress-percent" class="font-bold text-indigo-600">10%</span>
+        </div>
+        <p class="mt-3 text-xs text-slate-400">
+          *Tu navegador está recalculando y comprimiendo el flujo de video directamente en tu tarjeta gráfica o CPU.
+        </p>
+      </div>
+
+      <!-- =====================================================================
+           ÁREA DE TRABAJO (PRESETS Y REPRODUCTOR DE VISTA PREVIA)
+           ===================================================================== -->
+      <div id="workspace-section" class="hidden mt-8 max-w-4xl mx-auto text-left">
+        <!-- 1. AJUSTES PREDEFINIDOS (DISCORD, WHATSAPP, 720P) -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 mb-8 shadow-xs">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Selecciona el Modo de Compresión</h3>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            <!-- Preset Discord -->
+            <button type="button" id="preset-discord" class="py-3 px-4 rounded-xl border border-indigo-600 bg-indigo-50 text-indigo-700 text-xs font-bold shadow-xs transition-all flex flex-col items-center justify-center gap-1">
+              <span>👾 Discord</span>
+              <span class="text-[10px] opacity-75">&lt; 10 MB</span>
+            </button>
+
+            <!-- Preset WhatsApp -->
+            <button type="button" id="preset-whatsapp" class="py-3 px-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs font-bold hover:bg-slate-100 transition-all flex flex-col items-center justify-center gap-1">
+              <span>💬 WhatsApp</span>
+              <span class="text-[10px] opacity-75">&lt; 16 MB</span>
+            </button>
+
+            <!-- Preset 720p Ligero -->
+            <button type="button" id="preset-light" class="py-3 px-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs font-bold hover:bg-slate-100 transition-all flex flex-col items-center justify-center gap-1">
+              <span>✨ Ligera</span>
+              <span class="text-[10px] opacity-75">720p HD</span>
+            </button>
+
+            <!-- Preset Extremo -->
+            <button type="button" id="preset-extreme" class="py-3 px-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs font-bold hover:bg-slate-100 transition-all flex flex-col items-center justify-center gap-1">
+              <span>📉 Máximo Ahorro</span>
+              <span class="text-[10px] opacity-75">480p Móvil</span>
+            </button>
+          </div>
+
+          <p id="preset-description" class="text-xs text-slate-500 bg-slate-50 p-3 rounded-xl border border-slate-200">
+            Ideal para compartir en canales sin Discord Nitro (Límite estricto de 10 MB).
+          </p>
+
+          <button id="start-compress-btn" type="button" class="mt-4 w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-extrabold text-base shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center gap-2">
+            <span>⚡</span>
+            <span>Iniciar Compresión en el Navegador</span>
+          </button>
+        </div>
+
+        <!-- 2. REPRODUCTORES LADO A LADO (ORIGINAL VS RESULTADO) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- Video Original -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-xs">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 text-xs">
+              <span class="font-bold text-slate-800">Video Original</span>
+              <div class="flex items-center gap-2">
+                <span id="original-size-badge" class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold font-mono">0 MB</span>
+                <span id="original-duration-badge" class="text-slate-400 font-mono">0s</span>
+              </div>
+            </div>
+            <div class="video-preview-wrapper">
+              <video id="original-video" controls playsinline></video>
+            </div>
+          </div>
+
+          <!-- Video Comprimido (Resultado) -->
+          <div id="result-box" class="hidden bg-white border border-slate-200 rounded-3xl p-5 shadow-xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 text-xs">
+                <span class="font-bold text-emerald-800 flex items-center gap-1.5">
+                  <span>✓</span> <span>Video Comprimido</span>
+                </span>
+                <div class="flex items-center gap-2">
+                  <span id="compressed-size-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold font-mono">0 MB</span>
+                  <span id="savings-badge" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700">Ahorro</span>
+                </div>
+              </div>
+              <div class="video-preview-wrapper mb-4">
+                <video id="compressed-video" controls playsinline></video>
+              </div>
+            </div>
+
+            <!-- Botón de Descarga con Monetización -->
+            <button id="download-btn" type="button" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-sm shadow-md shadow-emerald-600/25 transition-all flex items-center justify-center gap-2">
+              <span>📥</span>
+              <span>Descargar Video Comprimido</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button id="new-video-btn" type="button" class="text-xs text-slate-500 hover:text-slate-800 font-semibold underline">
+            &larr; Comprimir otro archivo de video
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPACIO PUBLICITARIO 2 (BANNER MEDIO) -->
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="ad-banner-slot h-28 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Banner Contenido (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         ARTÍCULO SEO: LÍMITES DE TAMAÑO Y COMPRESIÓN DE VIDEO
+         ======================================================================= -->
+    <article id="guia-video" class="max-w-4xl mx-auto px-4 py-16 prose prose-slate">
+      <header class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">Guía de Formatos & Video Web</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4 tracking-tight">
+          Límites de Tamaño de Video en Discord, WhatsApp y Gmail: Cómo Comprimir sin Perder Calidad
+        </h2>
+        <p class="text-sm text-slate-500 mt-2">Bitrate, resolución, códecs H.264/VP9 y por qué la compresión en el cliente protege tu privacidad.</p>
+      </header>
+
+      <div class="space-y-6 text-slate-700 text-base leading-relaxed">
+        <p>
+          Las cámaras de los teléfonos móviles actuales graban video en resoluciones 4K a 60 cuadros por segundo con bitrates sumamente elevados. Esto significa que un clip de apenas 20 segundos puede pesar fácilmente entre 80 MB y 150 MB, superando con creces los límites de subida de las principales plataformas de mensajería.
+        </p>
+
+        <!-- Tabla de Límites de Subida -->
+        <div class="overflow-x-auto not-prose my-8">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse bg-white rounded-2xl overflow-hidden shadow-xs border border-slate-200">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-3.5">Plataforma</th>
+                <th class="p-3.5">Límite Gratuito</th>
+                <th class="p-3.5">Resolución Recomendada</th>
+                <th class="p-3.5">Comportamiento</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="p-3.5 font-bold text-indigo-600">Discord (Sin Nitro)</td>
+                <td class="p-3.5 font-mono font-bold text-red-600">10 MB (antes 8 MB)</td>
+                <td class="p-3.5">720p o 480p</td>
+                <td class="p-3.5 text-xs text-slate-500">Rechaza la subida si supera el peso exacto.</td>
+              </tr>
+              <tr>
+                <td class="p-3.5 font-bold text-emerald-600">WhatsApp</td>
+                <td class="p-3.5 font-mono font-bold text-amber-600">16 MB</td>
+                <td class="p-3.5">720p</td>
+                <td class="p-3.5 text-xs text-slate-500">Recorta el video si supera el peso en el chat.</td>
+              </tr>
+              <tr>
+                <td class="p-3.5 font-bold text-red-600">Gmail / Correo</td>
+                <td class="p-3.5 font-mono font-bold text-slate-700">25 MB</td>
+                <td class="p-3.5">720p HD</td>
+                <td class="p-3.5 text-xs text-slate-500">Obliga a crear enlaces de Google Drive si excede.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          ¿Cómo funciona la compresión basada en Bitrate?
+        </h3>
+        <p>
+          El peso final de un video no depende únicamente de su resolución, sino de su <strong>tasa de bits (Bitrate)</strong> multiplicada por la duración en segundos:
+        </p>
+        <p class="font-mono bg-slate-100 p-3 rounded-xl text-xs text-slate-800">
+          Tamaño (Megabytes) = (Bitrate en bps &times; Duración en segundos) / 8 / 1,048,576
+        </p>
+        <p>
+          Al reducir de forma inteligente el bitrate y escalar clips 4K o 1080p a 720p, el ojo humano apenas percibe la diferencia en pantallas de teléfonos o monitores estándar, logrando ahorros de más del 70% en el peso del archivo.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <!-- =========================================================================
+       MODAL: MONETIZACIÓN DE DESCARGA
+       ========================================================================= -->
+  <div id="download-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl border border-slate-200 relative transform transition-all animate-in fade-in zoom-in-95">
+      <button id="close-download-modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">&times;</button>
+
+      <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl shadow-inner">
+        🎬
+      </div>
+
+      <h3 class="text-xl font-black text-slate-900">Tu Video Comprimido está Listo</h3>
+      <p class="text-xs text-slate-500 mt-1">Recodificado de forma 100% privada en tu navegador.</p>
+
+      <div class="my-5 p-4 rounded-2xl bg-slate-50 border border-dashed border-slate-300 text-left">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Apoya el desarrollo libre</span>
+        <p class="text-xs font-semibold text-slate-700">Mantén este compresor sin servidores gratuito visitando a nuestro patrocinador.</p>
+        <button id="sponsor-link-btn" type="button" class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg text-xs font-bold transition-colors">
+          <span>Ver Patrocinador</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </button>
+      </div>
+
+      <div class="mb-5 text-xs text-slate-600">
+        Descarga directa en: <span id="countdown-display" class="font-mono font-bold text-indigo-600 text-lg">4</span> segundos
+      </div>
+
+      <button id="continue-download-btn" disabled class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-sm shadow-md transition-all cursor-not-allowed opacity-50">
+        Preparando entrega de video...
+      </button>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>&copy; 2026 VideoCompress &bull; Parte de la suite de <a href="../index.html" class="text-indigo-600 hover:underline font-semibold">Micro-Servicios Web</a>.</p>
+      <div class="flex items-center gap-4">
+        <a href="#herramienta" class="hover:underline">Comprimir Video</a>
+        <a href="#guia-video" class="hover:underline">Límites y Bitrates</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Suite Compartida y Lógica Local -->
+  <script src="../js/shared-suite.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

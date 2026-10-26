@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extractor de Audio a MP3 Online Gratis | Extraer Sonido de Videos MP4 y WebM</title>
+  <meta name="description" content="Extrae la pista de sonido de videos de clases, reuniones o clips (MP4, WebM, MOV) y conviértela a MP3 ligero (128k, 192k, 320k) directamente en tu navegador sin servidores.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- lamejs CDN para codificación MP3 client-side -->
+  <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
+
+  <!-- Estilos propios y suite compartida -->
+  <link rel="stylesheet" href="../css/shared-suite.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased flex flex-col min-h-screen transition-colors duration-300">
+
+  <!-- Notificación Toast -->
+  <div id="toast" class="toast">¡Operación completada!</div>
+
+  <!-- =========================================================================
+       HEADER CON RETORNO AL CATÁLOGO
+       ========================================================================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition-colors text-sm font-semibold pr-3 border-r border-slate-200" title="Regresar al Catálogo Principal de Micro-Servicios">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">Catálogo</span>
+        </a>
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-lg shadow-md shadow-purple-500/20">🎵</span>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-slate-900 tracking-tight text-lg leading-tight">Audio<span class="text-brand-600">Extract</span></span>
+            <span class="text-[10px] text-slate-500 font-medium">Extractor de Audio en el Navegador</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-4 text-xs sm:text-sm font-medium text-slate-600">
+        <a href="#herramienta" class="hover:text-brand-600 transition-colors hidden sm:inline-block">Extraer Audio</a>
+        <a href="#guia-audio" class="hover:text-brand-600 transition-colors">Guía para Clases & IA</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- ESPACIO PUBLICITARIO 1 (TOP LEADERBOARD) -->
+    <div class="max-w-5xl mx-auto px-4 pt-6">
+      <div class="ad-banner-slot h-24 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         HERO SECTION & HERRAMIENTA CENTRAL
+         ======================================================================= -->
+    <section id="herramienta" class="max-w-5xl mx-auto px-4 py-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
+        <span>⚡ 100% En Memoria Local</span> &bull; <span>Sin Subir Videos a la Nube</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        Extraer Pistas de Audio a MP3 <span class="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Directo en tu Navegador</span>
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+        Convierte grabaciones de clases, podcasts de video, conferencias o clips MP4/WebM en archivos MP3 ultraligeros listos para escuchar o transcribir.
+      </p>
+
+      <!-- SECCIÓN PRINCIPAL DE TRABAJO -->
+      <div id="tool-section" class="mt-8 max-w-2xl mx-auto">
+        <!-- ZONA DRAG & DROP -->
+        <div id="dropzone" class="relative group bg-white border-2 border-dashed border-slate-300 hover:border-purple-500 rounded-3xl p-8 sm:p-12 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-xl bg-gradient-to-b from-white to-slate-50/50">
+          <input type="file" id="file-input" accept="video/mp4, video/webm, video/quicktime, video/x-matroska, audio/*, .mp4, .mov, .webm, .mkv" class="hidden">
+
+          <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 mb-4 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 shadow-inner">
+              🎙️
+            </div>
+
+            <button id="upload-btn" type="button" class="btn-pulse-audio inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-base hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg shadow-purple-500/25 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Subir Archivo de Video</span>
+            </button>
+
+            <p class="mt-4 text-sm text-slate-500">
+              o arrastra y suelta tu video aquí. También puedes pegar con <kbd class="px-2 py-1 text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-300 rounded-md shadow-2xs">Ctrl + V</kbd>
+            </p>
+            <p class="mt-1 text-xs text-slate-400">Compatible con MP4, MOV, WebM, MKV y clips de cualquier duración</p>
+
+            <!-- Botón Demo -->
+            <div class="mt-6 pt-5 border-t border-slate-100 flex items-center gap-2">
+              <span class="text-xs text-slate-400">¿No tienes un video a mano?</span>
+              <button id="demo-btn" type="button" class="text-xs font-bold text-brand-600 hover:text-brand-700 hover:underline inline-flex items-center gap-1">
+                <span>Probar con video de ejemplo</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTENEDOR DE PROGRESO -->
+        <div id="progress-container" class="mt-6 bg-white border border-slate-200 rounded-3xl p-6 shadow-md text-left hidden">
+          <div class="flex items-center justify-between text-sm font-bold text-slate-800 mb-2">
+            <span id="progress-stage" class="flex items-center gap-2">
+              <span class="animate-spin inline-block w-4 h-4 border-2 border-brand-600 border-t-transparent rounded-full"></span>
+              Procesando audio...
+            </span>
+            <span id="progress-text" class="text-brand-600">0%</span>
+          </div>
+          <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+            <div id="progress-bar" class="bg-gradient-to-r from-purple-600 to-indigo-600 h-full rounded-full transition-all duration-150 ease-out" style="width: 0%"></div>
+          </div>
+          <p class="mt-2 text-xs text-slate-500">El procesamiento se ejecuta en el procesador de tu equipo para máxima privacidad.</p>
+        </div>
+
+        <!-- TARJETA DE AJUSTES / OPCIONES -->
+        <div id="options-card" class="mt-6 bg-white border border-slate-200 rounded-3xl p-6 shadow-lg text-left hidden">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Pista Detectada en el Archivo</h2>
+              <p id="video-name" class="text-xs text-slate-500 truncate max-w-xs sm:max-w-md font-mono mt-0.5">video.mp4</p>
+            </div>
+            <span class="px-2.5 py-1 text-xs font-semibold bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Audio Listo
+            </span>
+          </div>
+
+          <!-- Métricas del archivo -->
+          <div class="grid grid-cols-3 gap-3 my-4">
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Tamaño Video</span>
+              <span id="video-size" class="text-sm font-extrabold text-slate-800 font-mono mt-0.5 block">0 MB</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Duración</span>
+              <span id="video-duration" class="text-sm font-extrabold text-slate-800 font-mono mt-0.5 block">00:00</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Canales</span>
+              <span id="video-channels" class="text-sm font-extrabold text-slate-800 font-mono mt-0.5 block">Estéreo</span>
+            </div>
+          </div>
+
+          <!-- Selectores de Calidad y Canales -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div>
+              <label for="quality-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Calidad de Audio MP3
+              </label>
+              <select id="quality-select" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-800 focus:outline-hidden focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all">
+                <option value="128" selected>128 kbps (Recomendado para Clases & Voz)</option>
+                <option value="192">192 kbps (Calidad Estándar Equilibrada)</option>
+                <option value="320">320 kbps (Máxima Fidelidad Musical)</option>
+              </select>
+              <span class="text-[11px] text-slate-400 mt-1 block">128 kbps reduce el peso hasta un 95% manteniendo la voz nítida.</span>
+            </div>
+
+            <div>
+              <label for="channel-mode-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                Canales de Salida
+              </label>
+              <select id="channel-mode-select" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-800 focus:outline-hidden focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all">
+                <option value="stereo" selected>Mantener Estéreo (2 canales)</option>
+                <option value="mono">Convertir a Mono (Ahorro extra de espacio)</option>
+              </select>
+              <span class="text-[11px] text-slate-400 mt-1 block">Mono es ideal para notas de voz o dictados.</span>
+            </div>
+          </div>
+
+          <!-- Botón de Acción Principal -->
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
+            <button id="extract-btn" type="button" class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm hover:from-purple-700 hover:to-indigo-700 transition-all shadow-md shadow-purple-500/25 active:scale-98">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
+              <span>Extraer y Codificar a MP3</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TARJETA DE RESULTADO Y REPRODUCTOR INTEGRADO -->
+        <div id="result-card" class="mt-6 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl text-left hidden">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl">
+                🎧
+              </span>
+              <div>
+                <h3 id="result-name" class="text-base font-extrabold text-slate-900 truncate max-w-xs font-mono">audio.mp3</h3>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span id="result-bitrate-badge" class="px-2 py-0.5 text-[10px] font-bold bg-purple-100 text-purple-800 rounded-md">128 kbps</span>
+                  <span id="result-size" class="text-xs font-bold text-slate-600 font-mono">0 MB</span>
+                  <span id="result-savings" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">-90% vs Video</span>
+                </div>
+              </div>
+            </div>
+            <button id="reset-btn" type="button" class="text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors p-2" title="Cargar otro video">
+              &times; Nuevo
+            </button>
+          </div>
+
+          <!-- Reproductor de Audio Integrado -->
+          <div class="my-6 p-4 rounded-2xl audio-player-card">
+            <span class="text-xs font-bold text-purple-200 block mb-2 flex items-center gap-2">
+              <svg class="w-4 h-4 text-purple-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
+              Escuchar resultado antes de descargar:
+            </span>
+            <audio id="audio-preview" controls class="w-full outline-hidden"></audio>
+          </div>
+
+          <!-- Botones de Descarga -->
+          <div class="flex flex-col sm:flex-row items-center gap-3">
+            <button id="download-mp3-btn" type="button" class="btn-pulse-audio w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg shadow-purple-500/25 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Descargar Audio en MP3</span>
+            </button>
+
+            <button id="download-wav-btn" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors" title="Descargar en formato WAV sin compresión">
+              <span>Bajar WAV</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPACIO PUBLICITARIO 2 (BANNER CENTRAL) -->
+    <div class="max-w-4xl mx-auto px-4 py-6">
+      <div class="ad-banner-slot h-32 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Banner Contenido (728x90 o Responsivo)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         ARTÍCULO EDUCATIVO & SEO (ESTUDIANTES, CLASES, REUNIONES, IA)
+         ======================================================================= -->
+    <article id="guia-audio" class="max-w-4xl mx-auto px-4 py-12 text-slate-700 leading-relaxed border-t border-slate-200">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-4">
+          Por qué Extraer Audio de tus Videos: Guía para Estudiantes, Oficinistas y Creadores
+        </h2>
+
+        <p class="mb-4">
+          En la era de las clases universitarias por Zoom, conferencias en Google Meet y tutoriales en video, acumular gigabytes de archivos de video es una carga innecesaria para tu disco duro y tu plan de datos móvil. En más del 90% de los casos, la información visual es secundaria: lo que realmente necesitas es la voz del profesor, ponente o entrevistado.
+        </p>
+
+        <!-- Casos de uso en tarjetas -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <div class="text-2xl mb-2">🎓</div>
+            <h3 class="font-bold text-slate-900 text-base mb-1">Clases Grabadas y Conferencias</h3>
+            <p class="text-xs text-slate-600">
+              Un video de 2 horas en 1080p puede pesar 2.5 GB. Al convertirlo a MP3 de 128 kbps, el archivo resultante pesa menos de 110 MB, permitiéndote guardarlo en tu móvil y repasar mientras viajas en autobús o haces ejercicio.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <div class="text-2xl mb-2">🤖</div>
+            <h3 class="font-bold text-slate-900 text-base mb-1">Transcripción Rápida con IA (Whisper)</h3>
+            <p class="text-xs text-slate-600">
+              Herramientas de inteligencia artificial como OpenAI Whisper, TurboScribe o Notta tienen estrictos límites de subida de 25 MB a 100 MB. Al extraer únicamente la pista de audio MP3, la subida es instantánea y no satura tu conexión.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <div class="text-2xl mb-2">🔋</div>
+            <h3 class="font-bold text-slate-900 text-base mb-1">Ahorro Extremo de Batería y Pantalla</h3>
+            <p class="text-xs text-slate-600">
+              Reproducir un video mantiene la GPU y la pantalla de tu móvil encendidas todo el tiempo. Un archivo MP3 se reproduce en segundo plano con la pantalla apagada, consumiendo hasta un 80% menos de batería.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <div class="text-2xl mb-2">🔒</div>
+            <h3 class="font-bold text-slate-900 text-base mb-1">Privacidad y Confidencialidad Total</h3>
+            <p class="text-xs text-slate-600">
+              A diferencia de convertidores web tradicionales que suben tus grabaciones corporativas confidenciales a servidores en la nube, esta herramienta utiliza la <strong>Web Audio API</strong> nativa para extraer el sonido directamente en la memoria RAM de tu navegador.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight mt-8 mb-3">
+          ¿Qué tasa de bits (Bitrate) debo elegir?
+        </h3>
+        <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 mb-6">
+          <li><strong>128 kbps:</strong> La opción perfecta para grabaciones de voz humana, seminarios web, podcasts hablados y clases grabadas. Ofrece el máximo ahorro de megabytes sin degradación en la claridad de las palabras.</li>
+          <li><strong>192 kbps:</strong> El estándar balanceado para videos que combinan música de fondo y voces en off, ideal para clips de redes sociales y documentales.</li>
+          <li><strong>320 kbps:</strong> La más alta fidelidad técnica permitida por el formato MP3. Recomendada para conciertos, presentaciones acústicas o pistas musicales de alta fidelidad.</li>
+        </ul>
+
+        <!-- Preguntas Frecuentes -->
+        <h3 class="text-xl font-bold text-slate-900 tracking-tight mt-8 mb-3">
+          Preguntas Frecuentes (FAQ)
+        </h3>
+        <div class="space-y-3 text-sm">
+          <div class="border border-slate-200 rounded-xl p-4 bg-white">
+            <h4 class="font-bold text-slate-900 mb-1">¿Mis videos se envían a algún servidor?</h4>
+            <p class="text-slate-600">No. Todo el proceso de separación de la pista y codificación a MP3 se realiza dentro de tu propio navegador web mediante WebAssembly y la API de Audio de HTML5. Tus datos nunca salen de tu ordenador o teléfono.</p>
+          </div>
+          <div class="border border-slate-200 rounded-xl p-4 bg-white">
+            <h4 class="font-bold text-slate-900 mb-1">¿Hay límite de tamaño o duración?</h4>
+            <p class="text-slate-600">No hay límite artificial de tamaño de subida, ya que no se sube a internet. El único límite es la memoria RAM disponible en tu dispositivo para decodificar las muestras de audio.</p>
+          </div>
+          <div class="border border-slate-200 rounded-xl p-4 bg-white">
+            <h4 class="font-bold text-slate-900 mb-1">¿Puedo utilizarlo desde un teléfono móvil?</h4>
+            <p class="text-slate-600">Sí, es 100% compatible con Google Chrome, Safari en iOS, Mozilla Firefox y navegadores móviles basados en Chromium.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ESPACIO PUBLICITARIO 3 (BOTTOM ANCHOR) -->
+    <div class="max-w-5xl mx-auto px-4 pb-12">
+      <div class="ad-banner-slot h-24 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       MODAL DE DESCARGA MONETIZADA (SIMULADOR DE ACORTADOR / PATROCINIO)
+       ========================================================================= -->
+  <div id="download-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center transform transition-all border border-slate-100">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl">
+        ⚡
+      </div>
+      <h3 class="text-xl font-black text-slate-900">Generando Enlace de Alta Velocidad</h3>
+      <p class="text-xs text-slate-500 mt-1">Tu archivo MP3 ha sido procesado de forma gratuita y segura en tu navegador.</p>
+
+      <!-- Placeholder Anuncio dentro del modal -->
+      <div class="my-5 p-4 rounded-xl bg-slate-50 border border-slate-200">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Anuncio Patrocinado</span>
+        <div class="h-24 bg-white border border-dashed border-slate-300 rounded-lg flex items-center justify-center text-xs text-slate-400">
+          Banner Cuadrado / Display (300x250)
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 mb-4">
+        Descarga disponible en: <span id="modal-countdown" class="font-extrabold text-brand-600 text-sm">3</span> segundos
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <button id="modal-download-btn" type="button" disabled class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm opacity-50 cursor-not-allowed transition-all shadow-md">
+          <span>Espera 3s...</span>
+        </button>
+        <button id="modal-cancel-btn" type="button" class="text-xs text-slate-400 hover:text-slate-600 py-1 transition-colors">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2 font-medium">
+        <span>AudioExtract</span> &bull; <span>Herramienta 100% Client-Side</span>
+      </div>
+      <a href="../index.html" class="text-brand-600 hover:underline font-semibold flex items-center gap-1">
+        <span>&larr; Volver al Catálogo Central de Micro-Servicios</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Scripts Suite Compartida y Lógica Local -->
+  <script src="../js/shared-suite.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extractor de Colores de Imágenes Online | Paletas HEX, RGB y Gradientes CSS</title>
+  <meta name="description" content="Extrae la paleta cromática dominante de cualquier imagen, copia códigos HEX, RGB y HSL con un clic, usa la lupa cuentagotas en tiempo real y genera gradientes CSS automáticamente.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos propios y suite compartida -->
+  <link rel="stylesheet" href="../css/shared-suite.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- ColorThief CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased flex flex-col min-h-screen transition-colors duration-300">
+
+  <div id="toast" class="toast">¡Copiado al portapapeles!</div>
+
+  <!-- =========================================================================
+       CABECERA CON RETORNO AL CATÁLOGO
+       ========================================================================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition-colors text-sm font-semibold pr-3 border-r border-slate-200" title="Regresar al Catálogo Principal de Micro-Servicios">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">Catálogo</span>
+        </a>
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white text-lg shadow-md shadow-pink-500/20">🎨</span>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-slate-900 tracking-tight text-lg leading-tight">Palette<span class="text-brand-600">Forge</span></span>
+            <span class="text-[10px] text-slate-500 font-medium">Extractor de Paletas & Gradientes</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-4 text-xs sm:text-sm font-medium text-slate-600">
+        <a href="#herramienta" class="hover:text-brand-600 transition-colors hidden sm:inline-block">Extraer</a>
+        <a href="#guia-color" class="hover:text-brand-600 transition-colors">Teoría del Color</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- ESPACIO PUBLICITARIO 1 (TOP LEADERBOARD) -->
+    <div class="max-w-5xl mx-auto px-4 pt-6">
+      <div class="ad-banner-slot h-24 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         HERO SECTION & HERRAMIENTA CENTRAL
+         ======================================================================= -->
+    <section id="herramienta" class="max-w-5xl mx-auto px-4 py-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-50 border border-pink-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
+        <span>🎨 Análisis Cromático Local</span> &bull; <span>Cuentagotas Interactivo</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        Extrae la Paleta de Colores de <span class="bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent">Cualquier Imagen</span>
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+        Obtén al instante los 8 tonos dominantes, copia códigos HEX/RGB con un clic, selecciona píxeles con la lupa y genera gradientes CSS automáticamente.
+      </p>
+
+      <!-- TARJETA DE SUBIDA -->
+      <div id="tool-card" class="mt-8 max-w-2xl mx-auto">
+        <div id="dropzone" class="relative group bg-white border-2 border-dashed border-slate-300 hover:border-pink-500 rounded-3xl p-8 sm:p-12 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-xl bg-gradient-to-b from-white to-slate-50/50">
+          <input type="file" id="file-input" accept="image/png, image/jpeg, image/webp" class="hidden">
+
+          <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 mb-4 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-pink-500 group-hover:text-white transition-all duration-300 shadow-inner">
+              🎨
+            </div>
+
+            <button id="upload-btn" type="button" class="btn-pulse-pink inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-600 text-white font-bold text-base hover:from-pink-600 hover:to-rose-700 transition-all shadow-lg shadow-pink-500/25 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Subir Imagen</span>
+            </button>
+
+            <p class="mt-3 text-sm font-medium text-slate-600">o arrastra tu fotografía aquí</p>
+            <div class="mt-3 flex items-center gap-2 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+              <kbd class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-slate-700 font-mono font-semibold shadow-xs">Ctrl + V</kbd>
+              <span>Pega directamente desde tu portapapeles</span>
+            </div>
+
+            <!-- FOTOS DE PRUEBA -->
+            <div class="mt-6 pt-5 border-t border-slate-100 w-full flex flex-wrap items-center justify-center gap-2">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">O prueba con:</span>
+              <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5" data-sample-type="sunset">
+                <span>🌅</span> <span>Atardecer</span>
+              </button>
+              <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5" data-sample-type="cyberpunk">
+                <span>🌆</span> <span>Neón Cyberpunk</span>
+              </button>
+              <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5" data-sample-type="nature">
+                <span>🌲</span> <span>Naturaleza</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           ÁREA DE TRABAJO Y PALETA EXTRAÍDA
+           ===================================================================== -->
+      <div id="workspace-section" class="hidden mt-8 max-w-5xl mx-auto text-left">
+        <!-- 1. IMAGEN CON LUPA CUENTAGOTAS -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-5 mb-8 shadow-xs flex flex-col items-center">
+          <div class="w-full flex items-center justify-between pb-3 mb-3 border-b border-slate-100 text-xs">
+            <span class="font-bold text-slate-800 flex items-center gap-2">
+              <span>🔍</span> <span>Lupa Cuentagotas Interactiva (Haz clic en cualquier punto para capturar el color)</span>
+            </span>
+            <button id="new-image-btn" type="button" class="text-pink-600 hover:underline font-bold">
+              Subir otra foto
+            </button>
+          </div>
+
+          <!-- Contenedor con la Lupa -->
+          <div id="loupe-container" class="loupe-container max-w-full">
+            <canvas id="image-canvas" class="max-h-[50vh] object-contain rounded-xl"></canvas>
+            
+            <!-- Lupa flotante -->
+            <div id="loupe-cursor" class="loupe-cursor">
+              <canvas id="loupe-canvas"></canvas>
+              <div class="loupe-crosshair"></div>
+              <div id="loupe-tooltip" class="loupe-tooltip">#FFFFFF</div>
+            </div>
+          </div>
+
+          <!-- Colores seleccionados manualmente con cuentagotas -->
+          <div id="picked-section" class="hidden w-full mt-4 pt-3 border-t border-slate-100">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Colores capturados con Cuentagotas:</span>
+            <div id="picked-container" class="flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+
+        <!-- 2. TARJETAS DE LOS 8 COLORES DOMINANTES -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 mb-8 shadow-xs">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 mb-6 border-b border-slate-100">
+            <div>
+              <h3 class="text-lg font-black text-slate-900">Paleta de Colores Dominantes</h3>
+              <p class="text-xs text-slate-500">Haz clic sobre cualquier tarjeta para copiar el código al portapapeles</p>
+            </div>
+
+            <!-- Selector de Formato de Código -->
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+              <button type="button" id="format-hex-btn" class="px-3 py-1 rounded-lg text-xs font-bold bg-pink-600 text-white shadow-xs">HEX</button>
+              <button type="button" id="format-rgb-btn" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100">RGB</button>
+              <button type="button" id="format-hsl-btn" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100">HSL</button>
+            </div>
+          </div>
+
+          <!-- Grid de las 8 tarjetas -->
+          <div id="palette-container" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3"></div>
+
+          <!-- Botones de Exportación Rápida -->
+          <div class="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-end gap-2">
+            <span class="text-xs font-bold text-slate-400 mr-auto uppercase tracking-wider">Exportar Paleta:</span>
+            <button type="button" id="export-png-btn" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:border-pink-500 text-xs font-bold text-slate-700 hover:text-pink-600 transition-colors flex items-center gap-1.5 shadow-xs">
+              <span>🖼️</span> <span>Descargar PNG</span>
+            </button>
+            <button type="button" id="export-json-btn" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:border-pink-500 text-xs font-bold text-slate-700 hover:text-pink-600 transition-colors flex items-center gap-1.5 shadow-xs">
+              <span>📄</span> <span>Archivo JSON</span>
+            </button>
+            <button type="button" id="export-css-btn" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:border-pink-500 text-xs font-bold text-slate-700 hover:text-pink-600 transition-colors flex items-center gap-1.5 shadow-xs">
+              <span>🎨</span> <span>Variables CSS</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. GENERADOR DE GRADIENTES CSS -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 mb-8 shadow-xs">
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+            <div>
+              <h3 class="text-lg font-black text-slate-900">Generador de Gradientes CSS</h3>
+              <p class="text-xs text-slate-500">Gradiente generado dinámicamente con los tonos principales de tu imagen</p>
+            </div>
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+              <button type="button" id="gradient-type-linear" class="px-3 py-1 rounded-lg text-xs font-bold bg-pink-600 text-white shadow-xs">Lineal</button>
+              <button type="button" id="gradient-type-radial" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100">Radial</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <!-- Vista Previa del Gradiente -->
+            <div id="gradient-preview-box" class="gradient-preview-box h-44 w-full flex items-center justify-center text-white font-extrabold text-lg text-shadow">
+              Gradiente CSS
+            </div>
+
+            <!-- Controles y Código Copiable -->
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+                  <span>Ángulo de inclinación:</span>
+                  <span id="gradient-angle-val" class="font-mono text-pink-600 font-bold">135°</span>
+                </div>
+                <input type="range" id="gradient-angle-slider" min="0" max="360" value="135" class="w-full accent-pink-600 cursor-pointer">
+              </div>
+
+              <div class="bg-slate-900 p-3.5 rounded-2xl flex items-center justify-between gap-3">
+                <code id="gradient-css-code" class="text-xs font-mono text-pink-300 truncate">background: linear-gradient(...);</code>
+                <button type="button" id="copy-gradient-btn" class="px-3 py-1.5 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shrink-0 transition-colors active:scale-95">
+                  Copiar CSS
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPACIO PUBLICITARIO 2 (BANNER MEDIO) -->
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="ad-banner-slot h-28 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Banner Contenido (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         ARTÍCULO SEO: TEORÍA DEL COLOR Y DISEÑO WEB
+         ======================================================================= -->
+    <article id="guia-color" class="max-w-4xl mx-auto px-4 py-16 prose prose-slate">
+      <header class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-50 px-3 py-1 rounded-full border border-pink-100">Diseño UI / UX & Accesibilidad</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4 tracking-tight">
+          Teoría del Color en Diseño Web: Cómo Crear Paletas Armónicas
+        </h2>
+        <p class="text-sm text-slate-500 mt-2">La regla del 60-30-10, contraste accesible WCAG y psicología cromática.</p>
+      </header>
+
+      <div class="space-y-6 text-slate-700 text-base leading-relaxed">
+        <p>
+          Extraer colores a partir de una fotografía de referencia es una de las técnicas más efectivas para inspirar la identidad visual de una marca o el sistema de diseño (UI) de una página web. La naturaleza y la fotografía profesional ya contienen armonías equilibradas de iluminación, contraste y temperatura.
+        </p>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          La Regla de Oro del Diseño UI: 60 - 30 - 10
+        </h3>
+        <p>
+          Para que una interfaz no resulte caótica ni sature la vista del usuario, los diseñadores aplican la regla proporcional de distribución:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose my-6">
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm">60% Color Dominante</h4>
+            <p class="text-xs text-slate-600 mt-1">Suele ser el fondo neutro (blanco puro, gris pizarra claro o negro espacial) que proporciona aire y orden al contenido.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm">30% Color Secundario</h4>
+            <p class="text-xs text-slate-600 mt-1">Utilizado en tarjetas, barras de navegación y textos de encabezados para construir la estructura visual.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm">10% Color de Acento</h4>
+            <p class="text-xs text-slate-600 mt-1">El tono vibrante reservado exclusivamente para llamadas a la acción (botones CTA, enlaces, insignias y estados activos).</p>
+          </div>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          Formatos de Color: HEX vs RGB vs HSL
+        </h3>
+        <ul class="list-disc pl-6 space-y-2">
+          <li><strong>HEX (#RRGGBB):</strong> El formato hexadecimal más extendido en desarrollo web por su brevedad y facilidad para compartir.</li>
+          <li><strong>RGB (Red, Green, Blue):</strong> Representa los valores de luz de 0 a 255. Ideal para manipular opacidades con <code>rgba(r, g, b, 0.5)</code>.</li>
+          <li><strong>HSL (Hue, Saturation, Lightness):</strong> El más intuitivo para diseñadores. Permite crear variantes claras u oscuras de un mismo tono modificando únicamente la luminosidad (L).</li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>&copy; 2026 PaletteForge &bull; Parte de la suite de <a href="../index.html" class="text-pink-600 hover:underline font-semibold">Micro-Servicios Web</a>.</p>
+      <div class="flex items-center gap-4">
+        <a href="#herramienta" class="hover:underline">Extractor</a>
+        <a href="#guia-color" class="hover:underline">Teoría del Color</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Suite Compartida y Lógica Local -->
+  <script src="../js/shared-suite.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

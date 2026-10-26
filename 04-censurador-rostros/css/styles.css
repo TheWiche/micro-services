@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Estilos Personalizados - Censurador de Rostros y Privacidad Visual
+   ========================================================================== */
+
+/* Fondo ajedrezado para transparencias */
+.bg-checkerboard {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* Zona de Drag & Drop activa */
+.dropzone-active {
+  border-color: #0ea5e9 !important;
+  background-color: rgba(14, 165, 233, 0.06) !important;
+  transform: scale(1.01);
+}
+
+/* Pulso del botón principal */
+@keyframes pulse-cyan {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(14, 165, 233, 0);
+  }
+}
+
+.btn-pulse-cyan {
+  animation: pulse-cyan 2.4s infinite;
+}
+
+/* Lienzo de trabajo interactivo */
+.canvas-wrapper {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  overflow: auto;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  background: #0f172a;
+}
+
+#image-canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  cursor: crosshair;
+  margin: 0 auto;
+}
+
+/* Banners Display AdSense */
+.ad-banner-slot {
+  position: relative;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.ad-banner-slot::before {
+  content: 'PUBLICIDAD';
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.ad-banner-slot:hover {
+  border-color: #94a3b8;
+  background-color: #f1f5f9;
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  backdrop-filter: blur(6px);
+  background-color: rgba(15, 23, 42, 0.65);
+}
+
+/* Toast flotante */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1e293b;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  z-index: 60;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+

@@ -1,0 +1,209 @@
+/* ==========================================================================
+   Estilos Personalizados - Quitar Fondo (Removal Tool)
+   ========================================================================== */
+
+/* Fondo de patrón ajedrezado para transparencia (estilo Photoshop / Removal.ai) */
+.bg-checkerboard {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(-45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e2e8f0 75%),
+    linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* Patrón ajedrezado modo oscuro suave */
+.bg-checkerboard-dark {
+  background-color: #1e293b;
+  background-image: 
+    linear-gradient(45deg, #0f172a 25%, transparent 25%),
+    linear-gradient(-45deg, #0f172a 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #0f172a 75%),
+    linear-gradient(-45deg, transparent 75%, #0f172a 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* Contenedor del Comparador Antes / Después */
+.comparison-container {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  max-height: 70vh;
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+@media (max-width: 640px) {
+  .comparison-container {
+    height: 340px;
+  }
+}
+
+.comparison-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Capa de la imagen original (delante) recortada por clip-path */
+.comparison-before-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  clip-path: polygon(0 0, var(--split-pos, 50%) 0, var(--split-pos, 50%) 100%, 0 100%);
+  pointer-events: none;
+}
+
+/* Línea divisoria y manija del comparador */
+.comparison-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--split-pos, 50%);
+  width: 3px;
+  background-color: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.comparison-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  color: #1e293b;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid #3b82f6;
+  pointer-events: none;
+}
+
+/* Input slider invisible que cubre todo el comparador para interacción natural */
+.comparison-range {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  cursor: ew-resize;
+  z-index: 30;
+  touch-action: pan-y;
+}
+
+/* Zona de Drag & Drop con borde animado */
+.dropzone-active {
+  border-color: #3b82f6 !important;
+  background-color: rgba(59, 130, 246, 0.08) !important;
+  transform: scale(1.01);
+}
+
+/* Animación sutil de pulso para el botón destacado */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(59, 130, 246, 0);
+  }
+}
+
+.btn-pulse {
+  animation: pulse-glow 2.5s infinite;
+}
+
+/* Espacios simulados para anuncios AdSense */
+.ad-banner-slot {
+  position: relative;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.ad-banner-slot::before {
+  content: 'PUBLICIDAD';
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.ad-banner-slot:hover {
+  border-color: #94a3b8;
+  background-color: #f1f5f9;
+}
+
+/* Widget Flotante de Subida por Lotes */
+.floating-widget {
+  box-shadow: 0 12px 35px -4px rgba(15, 23, 42, 0.25), 0 4px 6px -2px rgba(15, 23, 42, 0.1);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.floating-widget:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Transiciones de Modal */
+.modal-backdrop {
+  backdrop-filter: blur(6px);
+  background-color: rgba(15, 23, 42, 0.65);
+}
+
+/* Indicador de insignia PRO */
+.badge-pro {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Estilos de tabla y código para el artículo SEO */
+.prose details summary {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.prose details summary:hover {
+  background-color: #f1f5f9;
+}
+
+.prose details[open] summary {
+  background-color: #e2e8f0;
+}
+

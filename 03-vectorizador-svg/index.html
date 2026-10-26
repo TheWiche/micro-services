@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vectorizador SVG Online Gratis | Convierte PNG y JPG a Gráficos Vectoriales</title>
+  <meta name="description" content="Convierte logotipos, firmas manuscritas, bocetos e iconos en archivos SVG vectoriales escalables e infinitos. Procesamiento 100% privado en tu navegador con ImageTracer.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos propios y suite compartida -->
+  <link rel="stylesheet" href="../css/shared-suite.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- ImageTracerJS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/imagetracerjs@1.2.6/imagetracer_v1.2.6.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased flex flex-col min-h-screen transition-colors duration-300">
+
+  <!-- Toast flotante para notificaciones -->
+  <div id="toast" class="toast">¡Acción completada!</div>
+
+  <!-- =========================================================================
+       HEADER CON RETORNO AL CATÁLOGO
+       ========================================================================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition-colors text-sm font-semibold pr-3 border-r border-slate-200" title="Regresar al Catálogo Principal de Micro-Servicios">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">Catálogo</span>
+        </a>
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-lg shadow-md shadow-purple-500/20">📐</span>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-slate-900 tracking-tight text-lg leading-tight">Vectorizador<span class="text-brand-600">SVG</span></span>
+            <span class="text-[10px] text-slate-500 font-medium">De Bitmap a Vectores Nativos</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-4 text-xs sm:text-sm font-medium text-slate-600">
+        <a href="#herramienta" class="hover:text-brand-600 transition-colors hidden sm:inline-block">Vectorizar</a>
+        <a href="#guia-vectorial" class="hover:text-brand-600 transition-colors">Guía SVG</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- ESPACIO PUBLICITARIO 1 (TOP LEADERBOARD) -->
+    <div class="max-w-5xl mx-auto px-4 pt-6">
+      <div class="ad-banner-slot h-24 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         HERO & HERRAMIENTA CENTRAL
+         ======================================================================= -->
+    <section id="herramienta" class="max-w-5xl mx-auto px-4 py-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
+        <span>⚡ Algoritmo ImageTracer</span> &bull; <span>100% Client-Side</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        Convierte imágenes PNG o JPG a <span class="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">SVG Vectorial Escalable</span>
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+        Transforma logotipos, siluetas, firmas manuscritas y gráficos en vectores nítidos con resolución infinita listos para impresión o diseño web.
+      </p>
+
+      <!-- TARJETA PRINCIPAL DE SUBIDA Y AJUSTES -->
+      <div id="tool-card" class="mt-8 max-w-3xl mx-auto">
+        <!-- ZONA DRAG & DROP -->
+        <div id="dropzone" class="relative group bg-white border-2 border-dashed border-slate-300 hover:border-purple-500 rounded-3xl p-8 sm:p-12 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-xl bg-gradient-to-b from-white to-slate-50/50">
+          <input type="file" id="file-input" accept="image/png, image/jpeg, image/webp" class="hidden">
+
+          <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 mb-4 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 shadow-inner">
+              📐
+            </div>
+
+            <!-- Botón Principal -->
+            <button id="upload-btn" type="button" class="btn-pulse-purple inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-base hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg shadow-purple-500/25 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Subir Imagen</span>
+            </button>
+
+            <p class="mt-3 text-sm font-medium text-slate-600">o arrastra tu imagen aquí</p>
+            <div class="mt-3 flex items-center gap-2 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+              <kbd class="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-slate-700 font-mono font-semibold shadow-xs">Ctrl + V</kbd>
+              <span>Pega cualquier imagen desde tu portapapeles</span>
+            </div>
+            <p class="mt-2 text-[11px] text-slate-400">Recomendado: Fondos lisos, buen contraste y bordes definidos</p>
+          </div>
+        </div>
+
+        <!-- 3 ICONOS DE EJEMPLO AUTO-GENERADOS -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">O prueba con:</span>
+          <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-purple-500 text-xs font-semibold text-slate-700 shadow-xs flex items-center gap-1.5 transition-colors" data-sample-type="firma">
+            <span>🖋️</span> <span>Firma Manuscrita</span>
+          </button>
+          <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-purple-500 text-xs font-semibold text-slate-700 shadow-xs flex items-center gap-1.5 transition-colors" data-sample-type="logo">
+            <span>🛡️</span> <span>Logotipo Tech</span>
+          </button>
+          <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-purple-500 text-xs font-semibold text-slate-700 shadow-xs flex items-center gap-1.5 transition-colors" data-sample-type="color">
+            <span>🎨</span> <span>Insignia Multicolor</span>
+          </button>
+        </div>
+
+        <!-- PANEL DE AJUSTES RÁPIDOS -->
+        <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs text-left">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Ajustes de Vectorización</h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+            <!-- Modo de Color -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Modo de Vectorización:</label>
+              <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                <button type="button" id="mode-bw" class="flex-1 py-2 px-3 rounded-xl bg-purple-600 text-white font-bold text-xs shadow-xs">
+                  B&N / Firma
+                </button>
+                <button type="button" id="mode-color" class="flex-1 py-2 px-3 rounded-xl bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200">
+                  Multicolor
+                </button>
+              </div>
+            </div>
+
+            <!-- Suavizado de Curvas -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Suavizado de Curvas:</label>
+              <select id="smoothing-select" class="w-full py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-800 outline-none focus:border-purple-500">
+                <option value="low">Bajo (Fiel a los píxeles)</option>
+                <option value="medium" selected>Medio (Recomendado)</option>
+                <option value="high">Alto (Curvas ultra-suaves)</option>
+              </select>
+            </div>
+
+            <!-- Cantidad de Colores (solo modo color) -->
+            <div id="color-count-container" class="hidden">
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Paleta de Colores:</label>
+              <select id="color-count-select" class="w-full py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-800 outline-none focus:border-purple-500">
+                <option value="4">4 colores (Minimalista)</option>
+                <option value="8">8 colores (Iconos)</option>
+                <option value="16" selected>16 colores (Equilibrado)</option>
+                <option value="32">32 colores (Detallado)</option>
+              </select>
+            </div>
+
+            <!-- Botón Re-vectorizar -->
+            <div class="sm:col-span-1">
+              <button type="button" id="revectorize-btn" class="w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors flex items-center justify-center gap-1.5">
+                <span>🔄</span> <span>Actualizar Trazado</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INDICADOR DE PROCESANDO -->
+      <div id="processing-indicator" class="hidden my-8 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold shadow-xs">
+        <div class="w-4 h-4 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+        <span>Calculando curvas Bézier y trazados vectoriales...</span>
+      </div>
+
+      <!-- =====================================================================
+           VISTA PREVIA DIVIDIDA (ORIGINAL BITMAP VS SVG VECTORIZADO)
+           ===================================================================== -->
+      <div id="preview-section" class="hidden mt-10 max-w-5xl mx-auto text-left">
+        <!-- Barra de métricas y acciones superiores -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 mb-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="text-xs font-bold text-slate-700">Métricas:</span>
+            <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600">Original: <strong id="bitmap-size-badge">0 KB</strong></span>
+            <span class="text-xs px-2.5 py-1 rounded-lg bg-purple-100 text-purple-800 font-bold">SVG: <strong id="svg-size-badge">0 KB</strong></span>
+            <span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold" id="svg-paths-badge">0 trazados</span>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button id="copy-svg-btn" type="button" class="flex-1 sm:flex-none px-4 py-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-xs transition-colors flex items-center justify-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Copiar Código SVG</span>
+            </button>
+            <button id="download-svg-btn" type="button" class="flex-1 sm:flex-none px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-purple-500/20 active:scale-95 transition-all flex items-center justify-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Descargar .SVG</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PANELES LADO A LADO -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- PANEL IZQUIERDO: BITMAP ORIGINAL -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-xs flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                <span class="font-bold text-slate-800 text-sm">Mapa de Bits Original (Píxeles)</span>
+              </div>
+              <!-- Controles Zoom Izquierda -->
+              <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
+                <button type="button" id="zoom-out-left" class="w-6 h-6 rounded hover:bg-white text-slate-600 text-xs font-bold" title="Alejar">-</button>
+                <button type="button" id="zoom-reset-left" class="px-1.5 h-6 rounded hover:bg-white text-slate-600 text-[10px] font-bold" title="Reiniciar">100%</button>
+                <button type="button" id="zoom-in-left" class="w-6 h-6 rounded hover:bg-white text-slate-600 text-xs font-bold" title="Acercar">+</button>
+              </div>
+            </div>
+
+            <div class="svg-preview-stage bitmap-preview-stage bg-checkerboard rounded-2xl border border-slate-200">
+              <img id="bitmap-img" alt="Bitmap original">
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2 text-center">Acércate para ver cómo los píxeles se distorsionan al ampliar.</p>
+          </div>
+
+          <!-- PANEL DERECHO: SVG VECTORIZADO / CÓDIGO -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-xs flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
+                <span class="font-bold text-slate-800 text-sm">Resultado Vectorial (SVG)</span>
+              </div>
+
+              <!-- Pestañas Vista vs Código & Zoom -->
+              <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
+                  <button type="button" id="tab-preview-btn" class="px-2.5 py-1 rounded-md bg-purple-600 text-white font-bold text-[11px]">Vista</button>
+                  <button type="button" id="tab-code-btn" class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-semibold text-[11px] hover:bg-slate-200">XML</button>
+                </div>
+                <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
+                  <button type="button" id="zoom-out-right" class="w-6 h-6 rounded hover:bg-white text-slate-600 text-xs font-bold" title="Alejar">-</button>
+                  <button type="button" id="zoom-reset-right" class="px-1.5 h-6 rounded hover:bg-white text-slate-600 text-[10px] font-bold" title="Reiniciar">100%</button>
+                  <button type="button" id="zoom-in-right" class="w-6 h-6 rounded hover:bg-white text-slate-600 text-xs font-bold" title="Acercar">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visor Gráfico SVG -->
+            <div id="svg-container" class="svg-preview-stage bg-checkerboard rounded-2xl border border-slate-200"></div>
+
+            <!-- Visor de Código SVG en bruto -->
+            <pre id="svg-code-pre" class="hidden h-[380px] overflow-auto p-4 bg-slate-900 text-purple-300 font-mono text-xs rounded-2xl border border-slate-800"></pre>
+
+            <p class="text-[11px] text-purple-600 font-medium mt-2 text-center">¡Nitidez absoluta sin importar cuánto zoom apliques!</p>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <button id="new-image-btn" type="button" class="text-xs text-slate-500 hover:text-slate-800 font-semibold underline">
+            &larr; Vectorizar otra imagen
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPACIO PUBLICITARIO 2 (BANNER DISPLAY MEDIO) -->
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="ad-banner-slot h-28 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Banner Contenido (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         GUÍA SEO DETALLADA SOBRE VECTORIZACIÓN Y USO DE SVG
+         ======================================================================= -->
+    <article id="guia-vectorial" class="max-w-4xl mx-auto px-4 py-16 prose prose-slate">
+      <header class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-full border border-purple-100">Guía de Diseño Gráfico y Web</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4 tracking-tight">
+          ¿Qué es la Vectorización de Imágenes y Por Qué Debes Usar SVG?
+        </h2>
+        <p class="text-sm text-slate-500 mt-2">Aprende a transformar mapas de bits en trazados geométricos limpios para imprenta y desarrollo.</p>
+      </header>
+
+      <div class="space-y-6 text-slate-700 text-base leading-relaxed">
+        <p>
+          Cualquier archivo en formato <strong>PNG, JPG o WebP</strong> es un <em>mapa de bits</em> (raster): una cuadrícula formada por miles de pequeños puntos de color llamados píxeles. Si amplías un mapa de bits para imprimirlo en una camiseta, cartel o simplemente lo visualizas en una pantalla Retina de alta resolución, la imagen pierde nitidez y se vuelve borrosa o pixelada.
+        </p>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          La magia del formato SVG (Scalable Vector Graphics)
+        </h3>
+        <p>
+          A diferencia de los mapas de bits, el formato <strong>SVG</strong> se basa en fórmulas matemáticas y coordenadas vectoriales (puntos, líneas, curvas Bézier y polígonos). Un archivo SVG no almacena píxeles, sino instrucciones precisas sobre cómo dibujar la forma geométrica.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose my-6">
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">♾️ Escalabilidad Infinita</h4>
+            <p class="text-xs text-slate-600 mt-1">El mismo archivo SVG puede usarse en un diminuto favicon de 16x16 píxeles o en una valla publicitaria de 10 metros sin perder un solo ápice de calidad.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">⚡ Peso Ultraligero en la Web</h4>
+            <p class="text-xs text-slate-600 mt-1">Al ser texto plano XML, un SVG suele pesar una fracción minúscula comparado con imágenes pesadas, acelerando el SEO y la puntuación en Google Core Web Vitals.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">🖨️ Corte Láser, CNC y Bordados</h4>
+            <p class="text-xs text-slate-600 mt-1">Las máquinas de corte por láser, plotters de vinilo, serigrafía y fresadoras CNC exigen trazados vectoriales vectorizados para guiar sus cabezales.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">🎨 Editables con CSS y JavaScript</h4>
+            <p class="text-xs text-slate-600 mt-1">Puedes cambiar dinámicamente los colores de relleno (fill), bordes (stroke) y animar cada trazado directamente en tu código web.</p>
+          </div>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          Consejos para lograr la mejor vectorización
+        </h3>
+        <ul class="list-disc pl-6 space-y-2">
+          <li><strong>Firmas manuscritas:</strong> Utiliza el modo <em>"Blanco y Negro / Firma"</em>. Si tu firma fue fotografiada sobre papel, asegúrate de que haya buen contraste entre la tinta y el fondo.</li>
+          <li><strong>Logotipos e Iconos:</strong> Elige <em>"Multicolor"</em> y ajusta la paleta al número exacto de colores de tu marca para evitar trazados redundantes.</li>
+          <li><strong>Suavizado de curvas:</strong> El nivel <em>"Medio"</em> elimina las imperfecciones de los píxeles escalonados sin deformar las esquinas angulares de tu diseño.</li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <!-- =========================================================================
+       MODAL: MONETIZACIÓN DE DESCARGA SVG
+       ========================================================================= -->
+  <div id="download-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl border border-slate-200 relative transform transition-all animate-in fade-in zoom-in-95">
+      <button id="close-download-modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">&times;</button>
+
+      <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl shadow-inner">
+        📐
+      </div>
+
+      <h3 class="text-xl font-black text-slate-900">Preparando tu Archivo SVG</h3>
+      <p class="text-xs text-slate-500 mt-1">Generando trazados limpios y optimizados.</p>
+
+      <div class="my-5 p-4 rounded-2xl bg-slate-50 border border-dashed border-slate-300 text-left">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Apoyo al proyecto</span>
+        <p class="text-xs font-semibold text-slate-700">Esta herramienta es 100% gratuita y privada. Puedes apoyar el desarrollo visitando a nuestro patrocinador.</p>
+        <button id="sponsor-link-btn" type="button" class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 text-purple-600 hover:bg-purple-100 rounded-lg text-xs font-bold transition-colors">
+          <span>Ver Enlace Patrocinado</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </button>
+      </div>
+
+      <div class="mb-5 text-xs text-slate-600">
+        Tu descarga comenzará en: <span id="countdown-display" class="font-mono font-bold text-purple-600 text-lg">3</span> segundos
+      </div>
+
+      <button id="continue-download-btn" disabled class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm shadow-md transition-all cursor-not-allowed opacity-50">
+        Espera un momento...
+      </button>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>&copy; 2026 VectorizadorSVG &bull; Parte de la suite de <a href="../index.html" class="text-purple-600 hover:underline font-semibold">Micro-Servicios Web</a>.</p>
+      <div class="flex items-center gap-4">
+        <a href="#herramienta" class="hover:underline">Vectorizar</a>
+        <a href="#guia-vectorial" class="hover:underline">Guía y Usos</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Suite Compartida y Lógica Local -->
+  <script src="../js/shared-suite.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

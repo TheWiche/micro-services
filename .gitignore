@@ -1,0 +1,13 @@
+# Archivos locales de notificación / credenciales
+notificar.py
+*.pyc
+__pycache__/
+
+# Scratch & pruebas temporales
+scratch/
+node_modules/
+
+# Sistema y logs
+.DS_Store
+Thumbs.db
+*.log

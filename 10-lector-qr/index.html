@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lector de Códigos QR Online | Escanear desde Capturas de Pantalla e Imágenes</title>
+  <meta name="description" content="¿Ves un código QR en tu pantalla y no tienes otro teléfono a mano? Toma una captura, presiona Ctrl + V y decodifica el enlace al instante. Incluye generador de QR.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos propios y suite compartida -->
+  <link rel="stylesheet" href="../css/shared-suite.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- jsQR CDN & QRCode.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased flex flex-col min-h-screen transition-colors duration-300">
+
+  <div id="toast" class="toast">¡Operación completada!</div>
+
+  <!-- =========================================================================
+       HEADER CON RETORNO AL CATÁLOGO
+       ========================================================================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition-colors text-sm font-semibold pr-3 border-r border-slate-200" title="Regresar al Catálogo Principal de Micro-Servicios">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">Catálogo</span>
+        </a>
+        <a href="./index.html" class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center text-white text-lg shadow-md shadow-indigo-500/20">📱</span>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-slate-900 tracking-tight text-lg leading-tight">QR<span class="text-brand-600">Decoder</span></span>
+            <span class="text-[10px] text-slate-500 font-medium">Escanear desde Pantalla e Imágenes</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-4 text-xs sm:text-sm font-medium text-slate-600">
+        <a href="#herramienta" class="hover:text-brand-600 transition-colors hidden sm:inline-block">Escanear</a>
+        <a href="#guia-qr" class="hover:text-brand-600 transition-colors">Cómo Escanear en PC</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- ESPACIO PUBLICITARIO 1 (TOP LEADERBOARD) -->
+    <div class="max-w-5xl mx-auto px-4 pt-6">
+      <div class="ad-banner-slot h-24 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Display (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         HERO SECTION & HERRAMIENTA CENTRAL
+         ======================================================================= -->
+    <section id="herramienta" class="max-w-5xl mx-auto px-4 py-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
+        <span>🔍 Sin Necesidad de Cámara Externa</span> &bull; <span>100% Client-Side</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        Escanear Código QR desde <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Imágenes o Pantalla</span>
+      </h1>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+        ¿Ves un código QR en tu propio monitor o móvil? Toma un recorte de pantalla, presiona <kbd class="px-1.5 py-0.5 bg-slate-200 rounded text-xs font-mono font-semibold">Ctrl + V</kbd> y accede al enlace de inmediato.
+      </p>
+
+      <!-- PESTAÑAS: ESCANEAR VS GENERAR -->
+      <div class="mt-8 max-w-md mx-auto bg-slate-100 p-1.5 rounded-2xl flex items-center border border-slate-200">
+        <button type="button" id="tab-scan-btn" class="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-xs flex items-center justify-center gap-2">
+          <span>📷</span> <span>Escanear QR de Imagen</span>
+        </button>
+        <button type="button" id="tab-gen-btn" class="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+          <span>✨</span> <span>Generar Código QR</span>
+        </button>
+      </div>
+
+      <!-- SECCIÓN 1: ESCANEAR CÓDIGO QR -->
+      <div id="scan-section" class="mt-6 max-w-2xl mx-auto">
+        <!-- ZONA DRAG & DROP -->
+        <div id="dropzone" class="relative group bg-white border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-3xl p-8 sm:p-12 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-xl bg-gradient-to-b from-white to-slate-50/50">
+          <input type="file" id="file-input" accept="image/png, image/jpeg, image/webp" class="hidden">
+
+          <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 mb-4 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-inner">
+              📱
+            </div>
+
+            <button id="upload-btn" type="button" class="btn-pulse-indigo inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-base hover:from-indigo-700 hover:to-violet-700 transition-all shadow-lg shadow-indigo-500/25 active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Subir Captura con QR</span>
+            </button>
+
+            <!-- Énfasis especial Ctrl + V -->
+            <div class="mt-5 p-3 rounded-2xl bg-indigo-50/70 border border-indigo-200 text-indigo-900 flex items-center gap-3 text-xs max-w-md text-left">
+              <span class="text-2xl shrink-0">⚡</span>
+              <div>
+                <strong>¿Recorte de pantalla listo?</strong><br>
+                Solo presiona <kbd class="px-1.5 py-0.5 bg-white border border-indigo-300 rounded font-mono font-bold text-indigo-800 shadow-xs">Ctrl + V</kbd> aquí para leer el QR al instante.
+              </div>
+            </div>
+
+            <p class="mt-3 text-sm font-medium text-slate-500">o arrastra tu imagen guardada</p>
+
+            <!-- BOTONES DE PRUEBA -->
+            <div class="mt-4 pt-4 border-t border-slate-100 w-full flex flex-wrap items-center justify-center gap-2">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Probar con demo:</span>
+              <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5" data-sample-type="url">
+                <span>🔗</span> <span>Enlace URL</span>
+              </button>
+              <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5" data-sample-type="wifi">
+                <span>📶</span> <span>Clave Wi-Fi</span>
+              </button>
+              <button type="button" class="sample-btn px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5" data-sample-type="text">
+                <span>📝</span> <span>Mensaje Secreto</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUADRO DE RESULTADO INSTANTÁNEO -->
+        <div id="result-card" class="hidden mt-6 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-md text-left">
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+            <h3 class="text-lg font-black text-slate-900">Resultado del Escaneo</h3>
+            <span id="qr-type-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800">
+              Enlace Web
+            </span>
+          </div>
+
+          <!-- Imagen con el recuadro verde detector sobre el QR -->
+          <div class="scanner-canvas-wrapper w-full bg-slate-100 border border-slate-200 rounded-2xl flex items-center justify-center p-3 mb-5 max-h-60 overflow-hidden">
+            <canvas id="qr-canvas" class="max-h-56 max-w-full object-contain rounded-lg"></canvas>
+          </div>
+
+          <!-- Texto Decodificado -->
+          <div class="mb-5">
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Contenido Decodificado:</label>
+            <textarea id="qr-decoded-text" readonly class="w-full h-28 p-3 rounded-2xl border border-slate-200 bg-slate-50 text-slate-800 font-mono text-xs sm:text-sm outline-none resize-none leading-relaxed"></textarea>
+          </div>
+
+          <!-- Botones de Acción -->
+          <div class="flex flex-col sm:flex-row items-center gap-3">
+            <button id="copy-content-btn" type="button" class="w-full sm:flex-1 py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-xs">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Copiar Contenido</span>
+            </button>
+
+            <a id="open-link-btn" href="#" target="_blank" rel="noopener noreferrer" class="hidden w-full sm:flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs transition-all flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              <span>Abrir Enlace en Pestaña Segura</span>
+            </a>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 text-center">
+            <button id="scan-again-btn" type="button" class="text-xs text-slate-500 hover:text-slate-800 font-semibold underline">
+              &larr; Escanear otra captura
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 2: GENERAR CÓDIGO QR -->
+      <div id="gen-section" class="hidden mt-6 max-w-xl mx-auto bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs text-left">
+        <h3 class="text-lg font-black text-slate-900 mb-1">Crea tu Código QR Personalizado</h3>
+        <p class="text-xs text-slate-500 mb-5">Escribe cualquier texto, enlace web o credencial Wi-Fi</p>
+
+        <div class="space-y-4 mb-6">
+          <div>
+            <label for="gen-input-text" class="block text-xs font-bold text-slate-700 mb-1">Texto o URL:</label>
+            <input type="text" id="gen-input-text" value="https://antigravity.google" class="w-full py-2.5 px-4 rounded-xl border border-slate-300 text-sm focus:border-indigo-500 outline-none" placeholder="https://mi-sitio-web.com">
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Color del QR:</label>
+              <input type="color" id="gen-fg-color" value="#0f172a" class="w-full h-10 rounded-xl cursor-pointer border border-slate-200 p-0.5">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Color de Fondo:</label>
+              <input type="color" id="gen-bg-color" value="#ffffff" class="w-full h-10 rounded-xl cursor-pointer border border-slate-200 p-0.5">
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenedor del QR Generado -->
+        <div class="flex flex-col items-center justify-center p-6 bg-slate-50 border border-slate-200 rounded-2xl mb-6">
+          <div id="gen-output-container" class="p-2 bg-white rounded-xl shadow-xs"></div>
+        </div>
+
+        <button id="download-gen-qr-btn" type="button" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-extrabold text-sm shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center gap-2">
+          <span>📥</span>
+          <span>Descargar Código QR (PNG)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ESPACIO PUBLICITARIO 2 (BANNER MEDIO) -->
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="ad-banner-slot h-28 w-full">
+        <span class="text-xs text-slate-400 font-medium">Espacio Publicitario Banner Contenido (728x90 / Responsivo Google AdSense)</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         ARTÍCULO SEO: CÓMO ESCANEAR UN QR DESDE EL MISMO DISPOSITIVO
+         ======================================================================= -->
+    <article id="guia-qr" class="max-w-4xl mx-auto px-4 py-16 prose prose-slate">
+      <header class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">Guía Práctica & Tutorial</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4 tracking-tight">
+          Cómo Escanear un Código QR desde la Misma Pantalla (PC o Móvil) sin Usar Otro Dispositivo
+        </h2>
+        <p class="text-sm text-slate-500 mt-2">El truco infalible para leer códigos QR que aparecen en tu propio navegador o aplicaciones.</p>
+      </header>
+
+      <div class="space-y-6 text-slate-700 text-base leading-relaxed">
+        <p>
+          A todos nos ha ocurrido: estás navegando por internet en tu ordenador portátil o leyendo un mensaje en tu teléfono, y de repente aparece un código QR en pantalla diciendo <em>"Escanea aquí para pagar"</em> o <em>"Escanea para acceder"</em>. La reacción instintiva solía ser pedirle prestado el teléfono a otra persona para tomarle una foto a tu propia pantalla.
+        </p>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          La Solución: Captura y Pegado Directo (Ctrl + V)
+        </h3>
+        <p>
+          Gracias a bibliotecas de visión por computadora como <strong>jsQR</strong> que se ejecutan directamente en el navegador, no necesitas ninguna cámara física para decodificar la matriz de puntos bidimensional:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose my-6">
+          <div class="p-5 rounded-2xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">💻 En Computadoras (Windows / Mac)</h4>
+            <ol class="list-decimal pl-4 mt-2 space-y-1 text-xs text-slate-600">
+              <li>Pulsa <kbd class="px-1 py-0.5 bg-slate-100 border rounded font-mono">Win + Shift + S</kbd> en Windows o <kbd class="px-1 py-0.5 bg-slate-100 border rounded font-mono">Cmd + Shift + 4</kbd> en Mac.</li>
+              <li>Arrastra el cursor sobre el código QR para recortarlo.</li>
+              <li>Entra a esta página y presiona <kbd class="px-1 py-0.5 bg-slate-100 border rounded font-mono font-bold">Ctrl + V</kbd>. El enlace se abrirá al instante.</li>
+            </ol>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white border border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">📱 En Teléfonos Móviles (iPhone / Android)</h4>
+            <ol class="list-decimal pl-4 mt-2 space-y-1 text-xs text-slate-600">
+              <li>Toma una captura de pantalla normal con los botones de volumen y encendido.</li>
+              <li>Toca en "Subir Captura con QR" en esta página y selecciona la captura de tu galería.</li>
+              <li>Podrás copiar el texto o abrir el link sin necesidad de un segundo móvil.</li>
+            </ol>
+          </div>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-8">
+          Seguridad: Prevención de QR Phishing (Qshing)
+        </h3>
+        <p>
+          Escanear códigos QR desconocidos con la cámara de tu teléfono puede redirigirte a páginas fraudulentas antes de que puedas leer la dirección real. Nuestro lector client-side te muestra primero la <strong>URL exacta decodificada</strong> para que puedas inspeccionarla antes de decidir abrirla en una pestaña segura con protección contra ataques de redirección.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>&copy; 2026 QRDecoder &bull; Parte de la suite de <a href="../index.html" class="text-indigo-600 hover:underline font-semibold">Micro-Servicios Web</a>.</p>
+      <div class="flex items-center gap-4">
+        <a href="#herramienta" class="hover:underline">Escanear</a>
+        <a href="#guia-qr" class="hover:underline">Tutorial QR</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Suite Compartida y Lógica Local -->
+  <script src="../js/shared-suite.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

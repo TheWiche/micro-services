@@ -1,0 +1,165 @@
+/* ==========================================================================
+   Estilos Personalizados - Extractor de Colores y Generador de Gradientes
+   ========================================================================== */
+
+/* Fondo ajedrezado para transparencias */
+.bg-checkerboard {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+  background-size: 14px 14px;
+  background-position: 0 0, 0 7px, 7px -7px, -7px 0px;
+}
+
+/* Dropzone activo */
+.dropzone-active {
+  border-color: #ec4899 !important;
+  background-color: rgba(236, 72, 153, 0.06) !important;
+  transform: scale(1.01);
+}
+
+/* Pulso rosa / degradado */
+@keyframes pulse-pink {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+  }
+}
+
+.btn-pulse-pink {
+  animation: pulse-pink 2.4s infinite;
+}
+
+/* Lupa Cuentagotas (Magnifier Loupe) */
+.loupe-container {
+  position: relative;
+  display: inline-block;
+  cursor: crosshair;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.loupe-cursor {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  display: none;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  background-color: #0f172a;
+}
+
+.loupe-cursor canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.loupe-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  z-index: 31;
+}
+
+.loupe-tooltip {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.9);
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Tarjetas de Color */
+.color-card {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.color-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* Caja de Gradiente CSS */
+.gradient-preview-box {
+  border-radius: 1.25rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease;
+}
+
+/* Banners Display AdSense */
+.ad-banner-slot {
+  position: relative;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.ad-banner-slot::before {
+  content: 'PUBLICIDAD';
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.ad-banner-slot:hover {
+  border-color: #94a3b8;
+  background-color: #f1f5f9;
+}
+
+/* Toast flotante */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1e293b;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  z-index: 60;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
